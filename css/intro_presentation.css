@@ -20,7 +20,7 @@
 	align-items: flex-end;
 	flex-direction: column;
 	padding:20px;
-	color: white;
+	color: #f4a812;
 }
 #intro_card .right ul {
 	position: relative;
@@ -34,5 +34,5 @@
 }
 
 #footer_card {
-	background-color: black;
+	/*background-color: black;*/
 }
