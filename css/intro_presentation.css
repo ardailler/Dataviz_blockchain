@@ -1,0 +1,38 @@
+#intro_card  {
+	/*border: 5px solid black;*/
+}
+
+#intro_card .left {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+	padding:20px; 
+}
+
+#intro_card .left > h3:nth-child(1) {
+	font-family: 'Muli Bold';
+}
+
+#intro_card .right {
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	flex-direction: column;
+	padding:20px;
+	color: white;
+}
+#intro_card .right ul {
+	position: relative;
+	display: block;
+	list-style: none;
+}
+
+#intro_card .right ul li span {
+	font-family: 'Muli Bold';
+	font-size: 1.25em;
+}
+
+#footer_card {
+	background-color: black;
+}

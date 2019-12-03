@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blockchain</title>
+</head>
+<!-- ajout de la librairie JQuery -->
+<!-- <script type="text/javascript" src="./script/jquery.min.js"></script> -->
+<link rel="stylesheet" type="text/css" href="./plugin/fullpage.min.css" />
+<link rel="stylesheet" type="text/css" href="./css/main.css">
+<link rel="stylesheet" type="text/css" href="./css/main_fullpage.css" />
+<link rel="stylesheet" type="text/css" href="./css/intro_presentation.css" />
+
+<body>
+
+<div id="fullpage">
+	<div class="section">
+		<div class="section-container">
+			<div id="intro_card" class="section-card row">
+				<div class="left col-6 col-l-6 col-m-6 col-s-6 col-xs-6">
+					<h3>Data visualisation</h3>
+					<h3>Blockchain</h3>
+				</div>
+				<div class="right col-6 col-l-6 col-m-6 col-s-6 col-xs-6">
+					<ul>
+						<li class="body_2"><span>BRUYAT</span> Julian</li>
+						<li class="body_2"><span>DAILLER</span> Arnaud</li>
+						<li class="body_2"><span>Perrin</span> Thibaud</li>
+						<li class="body_2"><span>TISSERAND</span> Jean-Philippe</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="section-container">
+			<div class="section-card">
+				<h5>First Page</h5>
+			</div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="section-container">
+			<div class="section-card">
+				<h5>Second Page</h5>
+			</div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="section-container">
+			<div id="footer_card" class="section-card">
+				<h5>Footer Page</h5>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Chargement des scripts -->
+<script type="text/javascript" src="./plugin/fullpage.min.js"></script>
+<!-- Chargement du plugin fullpage -->
+<script type="text/javascript">
+	new fullpage('#fullpage', {
+		scrollBar: false, 
+
+		//Navigation
+		menu: '#menu',
+		lockAnchors: true,
+		anchors:['introPage', 'firstPage', 'secondPage', 'footerPage'],
+		navigation: true,
+		navigationPosition: 'right',
+		navigationTooltips: ['introSlide', 'firstSlide', 'secondSlide', 'footerSlide'],
+		showActiveTooltip: false,
+		slidesNavigation: true,
+		slidesNavPosition: 'bottom',
+
+		//Accessibility
+		keyboardScrolling: true,
+	});
+
+</script>
+</body>
+</html>

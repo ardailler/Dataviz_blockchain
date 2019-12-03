@@ -1,0 +1,94 @@
+body {
+	background-color: var(--color-primary1)
+
+}
+
+#fullpage {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/*Overide*/
+#fp-nav {
+	right: 5px!important;
+
+	/*-webkit-transform: scale(.95)!important;
+	-moz-transform: scale(.95)!important;
+	-ms-transform: scale(.95)!important;
+	-o-transform: scale(.95)!important;
+	transform: scale(.95)!important;*/
+}
+/*Overide*/
+#fp-nav ul li a span,
+.fp-slidesNav ul li a span {
+	background: var(--color-secondary1)!important;
+}
+/*Overide*/
+#fp-nav ul li .fp-tooltip {
+	color: var(--color-secondary1)!important;
+	background-color: white!important;
+	padding: 2px 5px;
+	border-radius: 50px; 
+}
+
+
+.section {
+	background: transparent url('../img/chain.svg')repeat-y 50% top / calc(100vh / 20);
+	/*background-color: var(--color-primary1);*/
+}
+
+.section .section-container {
+	position: relative;
+	display: block;
+	padding: 40px; 
+	width: 100%;
+	height: 100%;
+}
+
+.section .section-container .section-card {
+	position: relative;
+	display: flex;
+	padding: 10px; 
+	width: 100%;
+	height: 100%;
+	background-color: var(--color-primary2);
+	overflow: hidden;
+
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	-ms-border-radius: 50px;
+	-o-border-radius: 50px;
+	border-radius: 50px;
+
+	-webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	-moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	-ms-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	-o-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+
+	border: 10px solid black;
+}
+
+.section .section-container .section-card > .left {
+	position: relative;
+	height: 100%;
+}
+
+.section .section-container .section-card > .right::before {
+	content: '';
+	position: absolute;
+	display: block;
+	top: -50px;
+    left: calc(-50vw);
+    width: 100vw;
+    height: 100vh;
+	background: transparent url('../img/slice.svg')no-repeat 50% 50% / cover;
+}
+
+.section .section-container .section-card > .right {
+	position: relative;
+	height: 100%;
+}
