@@ -1,4 +1,4 @@
-var width = 500, height = 500
+var width = 700, height = 700
 
 const svg = d3.select('#sunburst')
 	.append('svg')
@@ -103,11 +103,11 @@ d3.csv('./data/avg-consommation-per-day.csv').then(function(transactions) {
 
 
 	function arcVisible(d) {
-		return d.y1 <= 3 && d.y0 >= 1 && d.x1 > d.x0
+		return d.y1 <= 2 && d.y0 >= 1 && d.x1 > d.x0
 	}
 
 	function labelVisible(d) {
-		return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03
+		return d.y1 <= 2 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03
 	}
 
 	function labelTransform(d) {
