@@ -20,7 +20,7 @@
 	align-items: flex-end;
 	flex-direction: column;
 	padding:20px;
-	color: #f4a812;
+	color: var(--color-primary1);
 }
 #intro_card .right ul {
 	position: relative;

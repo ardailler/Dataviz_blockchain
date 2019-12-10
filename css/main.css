@@ -28,7 +28,8 @@
 }
 
 :root {
-    --color-primary1: #f4a812;
+    /*--color-primary1: #f4a812;*/
+    --color-primary1: #fece2f;
     --color-primary2: #ffbb38;
     --color-secondary1: black;
     --color-secondary2: #2d1313;
