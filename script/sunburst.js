@@ -17,7 +17,9 @@ format = d3.format(",d")
 
 d3.csv('./data/avg-consommation-per-day.csv').then(function(transactions) {
 	data = groupByTime(transactions)
-	color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1))
+	colorRange = d3.scaleLinear().domain([0,.5]).range(["#F4A812", "#FFED42"]);
+	color = d3.scaleOrdinal(d3.quantize(colorRange, data.children.length + 1))
+	// color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1))
 	// data = transactions
 	root = partition(data)
 
