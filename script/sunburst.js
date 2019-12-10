@@ -15,7 +15,7 @@ var color = null
 format = d3.format(",d")
 
 
-d3.csv('./data/n-transactions.csv').then(function(transactions) {
+d3.csv('./data/avg-consommation-per-day.csv').then(function(transactions) {
 	data = groupByTime(transactions)
 	color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1))
 	// data = transactions
