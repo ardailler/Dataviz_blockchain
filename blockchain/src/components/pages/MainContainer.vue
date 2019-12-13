@@ -9,7 +9,7 @@
     </FullpageSection>
 
     <FullpageSection>
-
+      <Comparaison></Comparaison>
     </FullpageSection>
     <FullpageSection>
 
@@ -21,6 +21,7 @@
 
 import FullpageSection from '@/components/elements/FullpageSection.vue'
 import Introduction from '@/components/pages/Introduction.vue'
+import Comparaison from '@/components/pages/Comparaison.vue'
 import Consommation from '@/components/pages/Consommation.vue'
 
 import '@/assets/plugin/fullpage.min.css'
@@ -32,6 +33,7 @@ export default {
   components: {
     FullpageSection,
     Introduction,
+    Comparaison,
     Consommation
   },
   data () {
@@ -53,7 +55,19 @@ export default {
         slidesNavPosition: 'bottom',
 
         // Accessibility
-        keyboardScrolling: true
+        keyboardScrolling: true,
+
+        // callback
+        onLeave: this.onLeave
+      }
+    }
+  },
+  methods: {
+    onLeave  (origin, destination, direction) {
+      if (destination.anchor === 'introPage' || destination.anchor === 'footerPage') {
+        this.$store.dispatch('showNav', false)
+      } else {
+        this.$store.dispatch('showNav', true)
       }
     }
   }
@@ -67,18 +81,17 @@ export default {
     width: 100%;
     height: 100%;
   }
-
 </style>
 
 <style>
   /*Overide*/
   #fp-nav ul li a span,
   .fp-slidesNav ul li a span {
-    background: var(--color-secondary1)!important;
+    background: var(--color-dark)!important;
   }
   /*Overide*/
   #fp-nav ul li .fp-tooltip {
-    color: var(--color-secondary1)!important;
+    color: var(--color-dark)!important;
     background-color: white!important;
     padding: 2px 5px;
     border-radius: 50px;

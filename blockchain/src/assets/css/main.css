@@ -1,246 +1,286 @@
 @font-face {
-    font-family: 'Muli ExtraLight';
-    src: url('../font/Muli/Muli-ExtraLight.ttf') format('truetype');
+  font-family: 'Muli ExtraLight';
+  src: url('../font/Muli/Muli-ExtraLight.ttf') format('truetype');
 }
 @font-face {
-    font-family: 'Muli Light';
-    src: url('../font/Muli/Muli-Light.ttf') format('truetype');
+  font-family: 'Muli Light';
+  src: url('../font/Muli/Muli-Light.ttf') format('truetype');
 }
 @font-face {
-    font-family: 'Muli Regular';
-    src: url('../font/Muli/Muli-Regular.ttf') format('truetype');
+  font-family: 'Muli Regular';
+  src: url('../font/Muli/Muli-Regular.ttf') format('truetype');
 }
 @font-face {
-    font-family: 'Muli SemiBold';
-    src: url('../font/Muli/Muli-SemiBold.ttf') format('truetype');
+  font-family: 'Muli SemiBold';
+  src: url('../font/Muli/Muli-SemiBold.ttf') format('truetype');
 }
 @font-face {
-    font-family: 'Muli Bold';
-    src: url('../font/Muli/Muli-Bold.ttf') format('truetype');
+  font-family: 'Muli Bold';
+  src: url('../font/Muli/Muli-Bold.ttf') format('truetype');
 }
 @font-face {
-    font-family: 'Muli ExtraBold';
-    src: url('../font/Muli/Muli-ExtraBold.ttf') format('truetype');
+  font-family: 'Muli ExtraBold';
+  src: url('../font/Muli/Muli-ExtraBold.ttf') format('truetype');
 }
 @font-face {
-    font-family: 'Muli Black';
-    src: url('../font/Muli/Muli-Black.ttf') format('truetype');
+  font-family: 'Muli Black';
+  src: url('../font/Muli/Muli-Black.ttf') format('truetype');
 }
 
 :root {
-    /*--color-primary1: #f4a812;*/
-    --color-primary1: #fece2f;
-    --color-primary2: #ffbb38;
-    --color-secondary1: black;
-    --color-secondary2: #2d1313;
-    --color-tertiary:white;
+  --color-primary-00: #000000;
+  --color-primary-10: #40330c;
+  --color-primary-20: #806718;
+  --color-primary-30: #bf9b24;
+  --color-primary-default: #ffce30;
+  --color-primary-40: #ffd859;
+  --color-primary-50: #ffe283;
+  --color-primary-60: #ffebac;
+  --color-primary-70: #fff5d6;
 
-    --color-alert1: #ff3f34;
-    --color-alert2: #ffbab7;
+  --color-secondary-00: #000000;
+  --color-secondary-10: #11253c;
+  --color-secondary-20: #224979;
+  --color-secondary-30: #326eb5;
+  --color-secondary-default: #4392f1;
+  --color-secondary-40: #69a8f4;
+  --color-secondary-50: #8ebef7;
+  --color-secondary-60: #b4d3f9;
+  --color-secondary-70: #d9e9fc;
 
-    --color-light-yellow: #fff9cd;
-    --color-light-d-bleu: #c7c8d8;
-    --color-light-red: #ffcdcb;
+  --color-tertiary-00: #000000;
+  --color-tertiary-10: #001925;
+  --color-tertiary-20: #00324a;
+  --color-tertiary-30: #004b6f;
+  --color-tertiary-default: #006494;
+  --color-tertiary-40: #3383a9;
+  --color-tertiary-50: #66a2bf;
+  --color-tertiary-60: #99c1d4;
+  --color-tertiary-70: #cce0ea;
+
+  --color-quaternary-00: #000000;
+  --color-quaternary-10: #182722;
+  --color-quaternary-20: #314e45;
+  --color-quaternary-30: #497468;
+  --color-quaternary-default: #619b8a;
+  --color-quaternary-40: #81afa1;
+  --color-quaternary-50: #a0c3b9;
+  --color-quaternary-60: #c0d7d0;
+  --color-quaternary-70: #dfebe8;
+
+  --color-primary: var(--color-primary-default);
+  --color-secondary: var(--color-secondary-default);
+  --color-tertiary: var(--color-tertiary-default);
+  --color-quaternary: var(--color-quaternary-default);
+  --color-dark: black;
+  --color-light: white;
+
+  --color-alert1: #ff3f34;
+  --color-alert2: #ffbab7;
+
+  --color-light-yellow: #fff9cd;
+  --color-light-d-bleu: #c7c8d8;
+  --color-light-red: #ffcdcb;
 }
 
 *,
 *:after,
 *:before {
-    padding: 0;
-    margin: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    /* Font smoothing. That was taken from TWBS */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html,body {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
-    font-size: 100%;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-size: 100%;
 
 }
 h1 {
-    font-family: "Muli Light", sans-serif;
-    /*font-size: 54px;*/
-    font-size: 7.478em;
-    font-weight: 100;
-    letter-spacing: 0;
+  font-family: "Muli Light", sans-serif;
+  /*font-size: 54px;*/
+  font-size: 7.478em;
+  font-weight: 100;
+  letter-spacing: 0;
 }
 h2 {
-    font-family: "Muli Regular", sans-serif;
-    /*font-size: 54px;*/
-    font-size: 5.61em;
-    font-weight: 100;
-    letter-spacing: 0;
+  font-family: "Muli Regular", sans-serif;
+  /*font-size: 54px;*/
+  font-size: 5.61em;
+  font-weight: 100;
+  letter-spacing: 0;
 }
 h3 {
-    font-family: "Muli Regular", sans-serif;
-    /*font-size: 54px;*/
-    font-size: 4.209em;
-    font-weight: 100;
-    letter-spacing: 0;
+  font-family: "Muli Regular", sans-serif;
+  /*font-size: 54px;*/
+  font-size: 4.209em;
+  font-weight: 100;
+  letter-spacing: 0;
 }
 /*Font style guide*/
 h4 {
-    font-family: "Muli Regular", sans-serif;
-    /*font-size: 54px;*/
-    font-size: 3.157em;
-    font-weight: 100;
-    letter-spacing: 0;
+  font-family: "Muli Regular", sans-serif;
+  /*font-size: 54px;*/
+  font-size: 3.157em;
+  font-weight: 100;
+  letter-spacing: 0;
 }
 
 h5 {
-    font-family: "Muli Regular", sans-serif;
-    /*font-size: 54px;*/
-    font-size: 2.369em;
-    font-weight: 100;
-    letter-spacing: 0;
+  font-family: "Muli Regular", sans-serif;
+  /*font-size: 54px;*/
+  font-size: 2.369em;
+  font-weight: 100;
+  letter-spacing: 0;
 }
 
 h6 {
-    font-family: "Muli SemiBold", sans-serif;
-    font-size: 1.777em;
-    font-weight: 100;
-    letter-spacing: 1px;
+  font-family: "Muli SemiBold", sans-serif;
+  font-size: 1.777em;
+  font-weight: 100;
+  letter-spacing: 1px;
 }
 .subtitle_1 {
-    font-family: "Muli SemiBold", sans-serif;
-    font-size: 1.333em;
-    font-weight: 100;
-    letter-spacing: 1px;
+  font-family: "Muli SemiBold", sans-serif;
+  font-size: 1.333em;
+  font-weight: 100;
+  letter-spacing: 1px;
 }
 .body_1 {
-    font-family: "Muli Regular", sans-serif;
-    font-size: 1.333em;
-    font-weight: 100;
-    letter-spacing: 1.5px;
+  font-family: "Muli Regular", sans-serif;
+  font-size: 1.333em;
+  font-weight: 100;
+  letter-spacing: 1.5px;
 }
 
 .subtitle_2 {
-    font-family: "Muli SemiBold", sans-serif;
-    font-size: 1em;
-    font-weight: 100;
-    letter-spacing: .5px;
+  font-family: "Muli SemiBold", sans-serif;
+  font-size: 1em;
+  font-weight: 100;
+  letter-spacing: .5px;
 }
 .body_2 {
-    font-family: "Muli Regular", sans-serif;
-    font-size: 1em;
-    font-weight: 100;
-    letter-spacing: 1.5px;
+  font-family: "Muli Regular", sans-serif;
+  font-size: 1em;
+  font-weight: 100;
+  letter-spacing: 1.5px;
 }
 
 button {
-    font-family: "Muli SemiBold", sans-serif;
-    font-size: 1em;
-    font-weight: 100;
-    letter-spacing: .75px;
-    text-transform: uppercase;
+  font-family: "Muli SemiBold", sans-serif;
+  font-size: 1em;
+  font-weight: 100;
+  letter-spacing: .75px;
+  text-transform: uppercase;
 }
 
 .overline {
-    font-family: "Muli Regular", sans-serif;
-    font-size: 1em;
-    font-weight: 100;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+  font-family: "Muli Regular", sans-serif;
+  font-size: 1em;
+  font-weight: 100;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 
 .row {
-    display: flex;
-    justify-content: flex-start;
-    flex-flow: wrap;
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: wrap;
 }
 
 /* For mobile phones: */
 /* default settings */
 [class*="col-"] {
-    width: 100%;
+  width: 100%;
 }
 
 @media only screen and (max-width: 600px) {
-    /* For mobile phones: */
-    /* custom settings */
-    .col-xs-1 {width: 8.33%;}
-    .col-xs-2 {width: 16.66%;}
-    .col-xs-3 {width: 25%;}
-    .col-xs-4 {width: 33.33%;}
-    .col-xs-5 {width: 41.66%;}
-    .col-xs-6 {width: 50%;}
-    .col-xs-7 {width: 58.33%;}
-    .col-xs-8 {width: 66.66%;}
-    .col-xs-9 {width: 75%;}
-    .col-xs-10 {width: 83.33%;}
-    .col-xs-11 {width: 91.66%;}
-    .col-xs-12 {width: 100%;}
+  /* For mobile phones: */
+  /* custom settings */
+  .col-xs-1 {width: 8.33%;}
+  .col-xs-2 {width: 16.66%;}
+  .col-xs-3 {width: 25%;}
+  .col-xs-4 {width: 33.33%;}
+  .col-xs-5 {width: 41.66%;}
+  .col-xs-6 {width: 50%;}
+  .col-xs-7 {width: 58.33%;}
+  .col-xs-8 {width: 66.66%;}
+  .col-xs-9 {width: 75%;}
+  .col-xs-10 {width: 83.33%;}
+  .col-xs-11 {width: 91.66%;}
+  .col-xs-12 {width: 100%;}
 }
 
 @media only screen and (min-width: 600px) {
-    /* For tablets: */
-    .col-s-1 {width: 8.33%;}
-    .col-s-2 {width: 16.66%;}
-    .col-s-3 {width: 25%;}
-    .col-s-4 {width: 33.33%;}
-    .col-s-5 {width: 41.66%;}
-    .col-s-6 {width: 50%;}
-    .col-s-7 {width: 58.33%;}
-    .col-s-8 {width: 66.66%;}
-    .col-s-9 {width: 75%;}
-    .col-s-10 {width: 83.33%;}
-    .col-s-11 {width: 91.66%;}
-    .col-s-12 {width: 100%;}
+  /* For tablets: */
+  .col-s-1 {width: 8.33%;}
+  .col-s-2 {width: 16.66%;}
+  .col-s-3 {width: 25%;}
+  .col-s-4 {width: 33.33%;}
+  .col-s-5 {width: 41.66%;}
+  .col-s-6 {width: 50%;}
+  .col-s-7 {width: 58.33%;}
+  .col-s-8 {width: 66.66%;}
+  .col-s-9 {width: 75%;}
+  .col-s-10 {width: 83.33%;}
+  .col-s-11 {width: 91.66%;}
+  .col-s-12 {width: 100%;}
 }
 
 @media only screen and (min-width: 768px) {
-    /* For desktop: */
-    .col-m-1 {width: 8.33%;}
-    .col-m-2 {width: 16.66%;}
-    .col-m-3 {width: 25%;}
-    .col-m-4 {width: 33.33%;}
-    .col-m-5 {width: 41.66%;}
-    .col-m-6 {width: 50%;}
-    .col-m-7 {width: 58.33%;}
-    .col-m-8 {width: 66.66%;}
-    .col-m-9 {width: 75%;}
-    .col-m-10 {width: 83.33%;}
-    .col-m-11 {width: 91.66%;}
-    .col-m-12 {width: 100%;}
+  /* For desktop: */
+  .col-m-1 {width: 8.33%;}
+  .col-m-2 {width: 16.66%;}
+  .col-m-3 {width: 25%;}
+  .col-m-4 {width: 33.33%;}
+  .col-m-5 {width: 41.66%;}
+  .col-m-6 {width: 50%;}
+  .col-m-7 {width: 58.33%;}
+  .col-m-8 {width: 66.66%;}
+  .col-m-9 {width: 75%;}
+  .col-m-10 {width: 83.33%;}
+  .col-m-11 {width: 91.66%;}
+  .col-m-12 {width: 100%;}
 }
 
 
 @media only screen and (min-width: 992px) {
-    /* Large devices (laptops/desktops, 992px and up) */
-    .col-l-1 {width: 8.33%;}
-    .col-l-2 {width: 16.66%;}
-    .col-l-3 {width: 25%;}
-    .col-l-4 {width: 33.33%;}
-    .col-l-5 {width: 41.66%;}
-    .col-l-6 {width: 50%;}
-    .col-l-7 {width: 58.33%;}
-    .col-l-8 {width: 66.66%;}
-    .col-l-9 {width: 75%;}
-    .col-l-10 {width: 83.33%;}
-    .col-l-11 {width: 91.66%;}
-    .col-l-12 {width: 100%;}
+  /* Large devices (laptops/desktops, 992px and up) */
+  .col-l-1 {width: 8.33%;}
+  .col-l-2 {width: 16.66%;}
+  .col-l-3 {width: 25%;}
+  .col-l-4 {width: 33.33%;}
+  .col-l-5 {width: 41.66%;}
+  .col-l-6 {width: 50%;}
+  .col-l-7 {width: 58.33%;}
+  .col-l-8 {width: 66.66%;}
+  .col-l-9 {width: 75%;}
+  .col-l-10 {width: 83.33%;}
+  .col-l-11 {width: 91.66%;}
+  .col-l-12 {width: 100%;}
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-    .col-1 {width: 8.33%;}
-    .col-2 {width: 16.66%;}
-    .col-3 {width: 25%;}
-    .col-4 {width: 33.33%;}
-    .col-5 {width: 41.66%;}
-    .col-6 {width: 50%;}
-    .col-7 {width: 58.33%;}
-    .col-8 {width: 66.66%;}
-    .col-9 {width: 75%;}
-    .col-10 {width: 83.33%;}
-    .col-11 {width: 91.66%;}
-    .col-12 {width: 100%;}
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
 }
