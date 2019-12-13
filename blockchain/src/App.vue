@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition name="nav-anim" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
-      <nav id="nav" v-if="isNavOpen"></nav>
+      <Menu v-if="isNavOpen"></Menu>
     </transition>
     <router-view/>
     {{ isNavOpen }}
@@ -12,8 +12,13 @@
 import '@/assets/plugin/animate.css'
 import '@/assets/css/main.css'
 
+import Menu from '@/components/elements/Menu.vue'
+
 export default {
   name: 'App',
+  components: {
+    Menu
+  },
   computed: {
     isNavOpen () {
       return this.$store.getters.allData.showNav
@@ -28,14 +33,5 @@ export default {
     display: block;
     width: 100%;
     height: 100%;
-  }
-  #nav {
-    position: fixed;
-    display: block;
-    width: 100%;
-    height: 64px;
-    background-color: white;
-    border-bottom: 2px solid var(--color-primary);
-    z-index: 9999;
   }
 </style>

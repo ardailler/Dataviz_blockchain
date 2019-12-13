@@ -46,10 +46,10 @@ export default {
         menu: '#menu',
         lockAnchors: true,
         sectionsColor: ['white', 'white', 'white', 'black'],
-        anchors: ['introPage', 'firstPage', 'secondPage', 'footerPage'],
+        anchors: ['Introduction', 'Consommations', 'Comparaisons', 'Footer'],
         navigation: true,
         navigationPosition: 'right',
-        navigationTooltips: ['introSlide', 'firstSlide', 'secondSlide', 'footerSlide'],
+        navigationTooltips: ['Introduction', 'Consommations', 'Comparaisons', 'Footer'],
         showActiveTooltip: false,
         slidesNavigation: true,
         slidesNavPosition: 'bottom',
@@ -58,13 +58,15 @@ export default {
         keyboardScrolling: true,
 
         // callback
+        afterLoad: this.onLeave,
         onLeave: this.onLeave
       }
     }
   },
   methods: {
-    onLeave  (origin, destination, direction) {
-      if (destination.anchor === 'introPage' || destination.anchor === 'footerPage') {
+    onLeave (origin, destination, direction) {
+      this.$store.dispatch('slideName', destination.anchor)
+      if (destination.anchor === 'Introduction' || destination.anchor === 'Footer') {
         this.$store.dispatch('showNav', false)
       } else {
         this.$store.dispatch('showNav', true)
