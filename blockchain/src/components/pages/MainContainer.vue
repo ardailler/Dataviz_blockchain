@@ -3,9 +3,11 @@
     <FullpageSection>
       <Introduction></Introduction>
     </FullpageSection>
-    <FullpageSection>
 
+    <FullpageSection>
+      <Consommation></Consommation>
     </FullpageSection>
+
     <FullpageSection>
 
     </FullpageSection>
@@ -19,6 +21,7 @@
 
 import FullpageSection from '@/components/elements/FullpageSection.vue'
 import Introduction from '@/components/pages/Introduction.vue'
+import Consommation from '@/components/pages/Consommation.vue'
 
 import '@/assets/plugin/fullpage.min.css'
 
@@ -28,7 +31,8 @@ export default {
   },
   components: {
     FullpageSection,
-    Introduction
+    Introduction,
+    Consommation
   },
   data () {
     return {

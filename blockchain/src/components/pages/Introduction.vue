@@ -1,14 +1,14 @@
 <template>
   <div class="page-introduction">
-  <div class="title">
-    <h3>Data visualisation <br><span>Blockchain</span></h3>
-    <div class="team">
-      <h6>Julian<span> Bruyat</span></h6>
-      <h6>Arnaud<span> Dailler</span></h6>
-      <h6>Thibaud<span> Perrin</span></h6>
-      <h6>Jean-Philippe<span> Tisserand</span></h6>
+    <div class="title">
+      <h3>Data visualisation <br><span>Blockchain</span></h3>
+      <div class="team">
+        <h6>Julian<span> Bruyat</span></h6>
+        <h6>Arnaud<span> Dailler</span></h6>
+        <h6>Thibaud<span> Perrin</span></h6>
+        <h6>Jean-Philippe<span> Tisserand</span></h6>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 

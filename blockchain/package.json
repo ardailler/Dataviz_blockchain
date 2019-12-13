@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "d3": "^5.14.2",
     "vue": "^2.5.2",
     "vue-fullpage.js": "^0.1.5",
     "vue-router": "^3.0.1"
