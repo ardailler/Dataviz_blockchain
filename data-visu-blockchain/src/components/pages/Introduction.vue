@@ -1,8 +1,6 @@
 <template>
   <div class="page-introduction">
-    <h1>Test</h1>
-    <slot></slot>
-    <h1>after slot</h1>
+
   </div>
 </template>
 
@@ -16,4 +14,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .page-introduction {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: white url('../../assets/img/blockchain.svg')no-repeat 50% 50% / cover;
+  }
 </style>

@@ -1,24 +1,22 @@
 <template>
   <div id="app">
-    <Introduction>
-      <p>test</p>
-      <p>test2</p>
-      <p>test</p>
-    </Introduction>
+    <Fullpage>
+    </Fullpage>
   </div>
 </template>
 
 <script>
-import Introduction from './components/Introduction.vue'
+
+import Fullpage from '@/components/pages/Fullpage.vue'
 import '@/assets/css/main.css'
+
 export default {
   name: 'app',
   components: {
-    Introduction
+    Fullpage
   }
 }
 </script>
 
 <style>
-
 </style>
