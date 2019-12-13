@@ -1,22 +1,23 @@
 <template>
   <div id="app">
-    <Fullpage>
-    </Fullpage>
+    <router-view/>
   </div>
 </template>
 
 <script>
 
-import Fullpage from '@/components/pages/Fullpage.vue'
 import '@/assets/css/main.css'
 
 export default {
-  name: 'app',
-  components: {
-    Fullpage
-  }
+  name: 'App'
 }
 </script>
 
 <style>
+  #app {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 </style>
