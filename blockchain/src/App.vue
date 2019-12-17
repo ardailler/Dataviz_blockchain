@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition name="nav-anim" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
+    <transition name="nav-anim" enter-active-class="animated fadeInDown fast" leave-active-class="animated fadeOutUp fast">
       <Menu v-if="isNavOpen"></Menu>
     </transition>
     <router-view/>

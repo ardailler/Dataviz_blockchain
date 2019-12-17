@@ -45,6 +45,7 @@ export default {
         // Navigation
         menu: '#menu',
         lockAnchors: true,
+        scrollingSpeed: 800,
         sectionsColor: ['white', 'white', 'white', 'black'],
         anchors: ['Introduction', 'Consommations', 'Comparaisons', 'Footer'],
         navigation: true,

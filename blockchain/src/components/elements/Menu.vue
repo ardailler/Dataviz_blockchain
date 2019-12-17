@@ -2,7 +2,7 @@
   <nav id="nav">
     <div class="title">
       <img :src="bitcoin" alt="logo">
-      <transition name="nav-anim" enter-active-class="animated slideInDown" leave-active-class="animated slideOutDown">
+      <transition name="nav-anim" enter-active-class="animated slideInDown fast" leave-active-class="animated slideOutDown fast">
         <h6 :key="getSlideName">{{ getSlideName }}</h6>
       </transition>
     </div>
