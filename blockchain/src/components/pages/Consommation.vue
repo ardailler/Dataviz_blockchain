@@ -41,8 +41,7 @@ export default {
     }
   },
   mounted () {
-    this.loadData('Days').then(function () {
-      alert('load')
+    this.loadData('Years').then(function () {
     }) // Years, Months, Days
     let self = this
     setTimeout(function () {
