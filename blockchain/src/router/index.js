@@ -6,7 +6,6 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  base: '/Universite/Data_visualization/Dataviz_blockchain/',
   routes: [
     {
       path: '/',
