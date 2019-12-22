@@ -4,7 +4,6 @@
       <Menu v-if="isNavOpen"></Menu>
     </transition>
     <router-view/>
-    {{ isNavOpen }}
   </div>
 </template>
 
