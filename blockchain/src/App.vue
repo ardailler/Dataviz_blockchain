@@ -4,6 +4,7 @@
       <Menu v-if="isNavOpen"></Menu>
     </transition>
     <router-view/>
+    <div @click="clickMe()">click</div>
   </div>
 </template>
 
@@ -21,6 +22,11 @@ export default {
   computed: {
     isNavOpen () {
       return this.$store.getters.allData.showNav
+    }
+  },
+  methods: {
+    clickMe () {
+      this.$router.push('/test')
     }
   }
 }
