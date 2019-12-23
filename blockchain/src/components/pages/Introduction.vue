@@ -43,6 +43,9 @@ export default {
     align-items: flex-end;
     flex-direction: column;
   }
+  .title .team h6 {
+    text-align: right;
+  }
 
   .title h3,
   .title .team h6{

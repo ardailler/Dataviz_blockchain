@@ -6,11 +6,18 @@
         <h6 :key="getSlideName">{{ getSlideName }}</h6>
       </transition>
     </div>
+    <div class="switch-button">
+      <span :class="['icon energie', iconActivated('energie')]"></span>
+      <SwitchButton :switchState="isActivated" @clickOnSwitch="switchTypeConso()"></SwitchButton>
+      <!--<input type="checkbox" :checked="isActivated" @click.stop.prevent="switchTypeConso()">-->
+      <span :class="['icon data', iconActivated('data')]"></span>
+    </div>
   </nav>
 </template>
 
 <script>
 import bitcoin from '@/assets/img/bitcoin.svg'
+import SwitchButton from '@/components/elements/SwitchButton.vue'
 
 export default {
   name: 'Menu',
@@ -21,9 +28,23 @@ export default {
       bitcoin: bitcoin
     }
   },
+  components: {
+    SwitchButton
+  },
   computed: {
     getSlideName () {
       return this.$store.getters.allData.slideName
+    },
+    isActivated () {
+      return this.$store.getters.allData.switchConso
+    }
+  },
+  methods: {
+    switchTypeConso () {
+      this.$store.dispatch('switchConso')
+    },
+    iconActivated (type) {
+      return (this.$store.getters.allData.switchConso && type === 'data') || (!this.$store.getters.allData.switchConso && type === 'energie') ? 'activated' : ''
     }
   }
 }
@@ -65,5 +86,39 @@ export default {
     display: block;
     width: 24px;
     height: 24px;
+  }
+
+  #nav > .switch-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  #nav > .switch-button > .icon {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 24px;
+
+    -webkit-transition: .25s ease;
+    -moz-transition: .25s ease;
+    -ms-transition: .25s ease;
+    -o-transition: .25s ease;
+    transition: .25s ease;
+
+    filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+  }
+  #nav > .switch-button > .icon.activated {
+    filter: grayscale(0%);
+    -ms-filter: grayscale(0%);
+    -webkit-filter: grayscale(0%);
+  }
+  #nav > .switch-button > .icon.data {
+    background: transparent url('../../assets/img/data-storage.svg') no-repeat 50% 50% / 16px;
+  }
+  #nav > .switch-button > .icon.energie {
+    background: transparent url('../../assets/img/energie.svg') no-repeat 50% 50% / 16px;
   }
 </style>

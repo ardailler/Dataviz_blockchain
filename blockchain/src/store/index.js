@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     showNav: false,
-    slideName: ''
+    slideName: '',
+    switchConso: true
   },
   getters: {
     allData: state => {
@@ -19,6 +20,9 @@ const store = new Vuex.Store({
     },
     slideName (state, name) {
       state.slideName = name
+    },
+    switchConso (state) {
+      state.switchConso = !state.switchConso
     }
   },
   actions: {
@@ -27,6 +31,9 @@ const store = new Vuex.Store({
     },
     slideName (context, name) {
       context.commit('slideName', name)
+    },
+    switchConso (context) {
+      context.commit('switchConso')
     }
   }
 })
