@@ -4,7 +4,6 @@
       <Menu v-if="isNavOpen"></Menu>
     </transition>
     <router-view/>
-    <div @click="clickMe()">click</div>
   </div>
 </template>
 
@@ -25,9 +24,6 @@ export default {
     }
   },
   methods: {
-    clickMe () {
-      this.$router.push('/test')
-    }
   }
 }
 </script>
