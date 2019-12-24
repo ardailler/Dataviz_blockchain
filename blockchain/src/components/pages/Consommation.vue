@@ -48,7 +48,7 @@ export default {
     }, 50)
 
     window.addEventListener('resize', self.handleWindowResize)
-    self.loadData('Days')
+    self.loadData('Years')
     setTimeout(function () {
       self.initGraph()
     }, 1000)
