@@ -16,11 +16,11 @@ export default {
     return {
       width: 500,
       height: 500,
-      margin: {
+      padding: {
         top: 10,
-        right: 100,
-        bottom: 100,
-        left: 30
+        right: 10,
+        bottom: 55,
+        left: 60
       },
       svg: null,
       data: {
@@ -41,6 +41,7 @@ export default {
     }
   },
   mounted () {
+    window.addEventListener('resize', this.handleWindowResize)
     this.loadData('Years').then(function () {
     }) // Years, Months, Days
     let self = this
@@ -50,7 +51,35 @@ export default {
   },
   computed: {
   },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.handleWindowResize)
+  },
   methods: {
+    handleWindowResize (event) {
+      let self = this
+      self.width = event.currentTarget.innerWidth - 100
+      self.height = (event.currentTarget.innerHeight - 100)
+
+      d3.select('.y-axe').remove()
+      d3.select('.x-axe').remove()
+
+      self.drawYAxe()
+      self.drawXAxe()
+
+      d3.select('.svg-consommation')
+        .attr('width', self.width)
+        .attr('height', self.height)
+
+      d3.select('.svg-consommation-g')
+        .attr('transform', 'translate(0, 0)')
+      d3.select('.graph-path')
+        .attr('transform', 'translate(' + self.padding.left + ',0)')
+        .attr('d', d3.line()
+          .x((d) => { return self.x(d.date) })
+          .y((d) => { return self.y(d.value) })
+        )
+      // self.svg
+    },
     async loadData (type) { // Years, Months, Days
       let self = this
       d3.csv(csvTransactions).then(function (transactions) {
@@ -60,27 +89,27 @@ export default {
         self.data.transactions.listDate = self.data.transactions.dataTransform.map(function (el) { return el.date })
       })
     },
-    initGraph () {
+    drawYAxe () {
       let self = this
-      self.svg = d3.select('#consommation_graph')
-        .append('svg')
-        .style('font', '10px sans-serif')
-        .attr('width', self.width + self.margin.left + self.margin.right)
-        .attr('height', self.height + self.margin.top + self.margin.bottom)
-        .append('g')
-        .attr('transform',
-          'translate(' + self.margin.left + ',' + self.margin.top + ')')
-
-      let maxValue = self.data.transactions.maxValue
-      let listDate = self.data.transactions.listDate
-      let transactions = self.data.transactions.dataTransform
-
+      // Add Y axis
+      self.y = d3.scaleLinear()
+        .domain([0, self.maxValue]) // reverse() inverse l'ordre des éléments pour que l'affichage se fasse dans le bon ordre en x : testez sans pour voir ce qui se passe.
+        .range([(self.height - self.padding.bottom), 0])
+      self.svg.append('g')
+        .attr('class', 'y-axe')
+        .attr('transform', 'translate(' + self.padding.left + ',0)')
+        .call(d3.axisLeft(self.y))
+    },
+    drawXAxe () {
+      let self = this
       // Add X axis
       self.x = d3.scaleTime()
-        .domain(d3.extent(listDate))
-        .range([0, self.width])
+        .domain(d3.extent(self.listDate))
+        .range([0, (self.width - self.padding.left - self.padding.right)])
+
       self.svg.append('g')
-        .attr('transform', 'translate(50,' + self.height + ')')
+        .attr('class', 'x-axe')
+        .attr('transform', 'translate(' + self.padding.left + ',' + (self.height - self.padding.bottom) + ')')
         .call(d3.axisBottom(self.x)
           .tickFormat(d3.timeFormat('%d-%m-%Y'))
         )
@@ -89,14 +118,25 @@ export default {
         .attr('transform', 'rotate(-45)')
         .attr('y', 5)
         .attr('x', -10)
+    },
+    initGraph () {
+      let self = this
+      self.svg = d3.select('#consommation_graph')
+        .append('svg')
+        .attr('class', 'svg-consommation')
+        .style('font', '10px sans-serif')
+        .attr('width', self.width)
+        .attr('height', self.height)
+        .append('g')
+        .attr('class', 'svg-consommation-g')
+        .attr('transform', 'translate(0, 0)')
 
-      // Add Y axis
-      self.y = d3.scaleLinear()
-        .domain([0, maxValue]) // reverse() inverse l'ordre des éléments pour que l'affichage se fasse dans le bon ordre en x : testez sans pour voir ce qui se passe.
-        .range([self.height, 0])
-      self.svg.append('g')
-        .attr('transform', 'translate(50,0)')
-        .call(d3.axisLeft(self.y))
+      self.maxValue = self.data.transactions.maxValue
+      self.listDate = self.data.transactions.listDate
+      let transactions = self.data.transactions.dataTransform
+
+      self.drawYAxe()
+      self.drawXAxe()
 
       self.drawGraph(transactions)
     },
@@ -105,10 +145,11 @@ export default {
       // Add the line
       self.svg.append('path')
         .datum(transactions)
+        .attr('class', 'graph-path')
         .attr('fill', 'none')
         .attr('stroke', 'steelblue')
         .attr('stroke-width', 1.5)
-        .attr('transform', 'translate(50,0)')
+        .attr('transform', 'translate(' + self.padding.left + ',0)')
         .attr('d', d3.line()
           .x((d) => { return self.x(d.date) })
           .y((d) => { return self.y(d.value) })
