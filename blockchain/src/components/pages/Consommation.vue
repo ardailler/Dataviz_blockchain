@@ -41,10 +41,14 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener('resize', this.handleWindowResize)
-    this.loadData('Years').then(function () {
-    }) // Years, Months, Days
     let self = this
+    setTimeout(function () {
+      self.width = document.getElementById('consommation_graph').offsetWidth
+      self.height = document.getElementById('consommation_graph').offsetHeight
+    }, 50)
+
+    window.addEventListener('resize', self.handleWindowResize)
+    self.loadData('Days')
     setTimeout(function () {
       self.initGraph()
     }, 1000)
@@ -57,30 +61,31 @@ export default {
   methods: {
     handleWindowResize (event) {
       let self = this
-      self.width = event.currentTarget.innerWidth - 100
-      self.height = (event.currentTarget.innerHeight - 100)
+      setTimeout(function () {
+        self.width = document.getElementById('consommation_graph').offsetWidth
+        self.height = (document.getElementById('consommation_graph').offsetHeight)
 
-      d3.select('.y-axe').remove()
-      d3.select('.x-axe').remove()
+        d3.select('.y-axe').remove()
+        d3.select('.x-axe').remove()
 
-      self.drawYAxe()
-      self.drawXAxe()
+        self.drawYAxe()
+        self.drawXAxe()
 
-      d3.select('.svg-consommation')
-        .attr('width', self.width)
-        .attr('height', self.height)
+        d3.select('.svg-consommation')
+          .attr('width', self.width)
+          .attr('height', self.height)
 
-      d3.select('.svg-consommation-g')
-        .attr('transform', 'translate(0, 0)')
-      d3.select('.graph-path')
-        .attr('transform', 'translate(' + self.padding.left + ',0)')
-        .attr('d', d3.line()
-          .x((d) => { return self.x(d.date) })
-          .y((d) => { return self.y(d.value) })
-        )
-      // self.svg
+        d3.select('.svg-consommation-g')
+          .attr('transform', 'translate(0, 0)')
+        d3.select('.graph-path')
+          .attr('transform', 'translate(' + self.padding.left + ',0)')
+          .attr('d', d3.line()
+            .x((d) => { return self.x(d.date) })
+            .y((d) => { return self.y(d.value) })
+          )
+      }, 500)
     },
-    async loadData (type) { // Years, Months, Days
+    loadData (type) { // Years, Months, Days
       let self = this
       d3.csv(csvTransactions).then(function (transactions) {
         self.data.transactions.data = self.groupByTime(transactions, type) // Years, Months, Days
@@ -127,6 +132,20 @@ export default {
         .style('font', '10px sans-serif')
         .attr('width', self.width)
         .attr('height', self.height)
+      self.svg
+        .append('line')
+        .attr('class', 'line-pos')
+        .style('stroke', 'black')
+        .attr('x1', 10 + self.padding.left)
+        .attr('y1', 0)
+        .attr('x2', 10 + self.padding.left)
+        .attr('y2', self.height - self.padding.bottom)
+      self.svg.on('mouseenter', function () {
+        self.updateLinePos()
+      }).on('mousemove', function () {
+        self.updateLinePos()
+      })
+      d3.select('.svg-consommation')
         .append('g')
         .attr('class', 'svg-consommation-g')
         .attr('transform', 'translate(0, 0)')
@@ -139,6 +158,28 @@ export default {
       self.drawXAxe()
 
       self.drawGraph(transactions)
+    },
+    updateLinePos () {
+      let self = this
+      if (d3.event.pageX < self.padding.left) {
+        d3.select('.line-pos')
+          .attr('x1', self.padding.left)
+          .attr('y1', 0)
+          .attr('x2', self.padding.left)
+          .attr('y2', self.height - self.padding.bottom)
+      } else if (d3.event.pageX > (self.width - self.padding.right)) {
+        d3.select('.line-pos')
+          .attr('x1', (self.width - self.padding.right))
+          .attr('y1', 0)
+          .attr('x2', (self.width - self.padding.right))
+          .attr('y2', self.height - self.padding.bottom)
+      } else if (d3.event.pageX >= self.padding.left && d3.event.pageX <= (self.width - self.padding.right)) {
+        d3.select('.line-pos')
+          .attr('x1', d3.event.pageX)
+          .attr('y1', 0)
+          .attr('x2', d3.event.pageX)
+          .attr('y2', self.height - self.padding.bottom)
+      }
     },
     drawGraph (transactions) {
       let self = this
@@ -245,5 +286,11 @@ export default {
     background: white;
     padding-top: 64px;
   }
-
+  #consommation_graph {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 50%;
+    border: 1px solid black;
+  }
 </style>
