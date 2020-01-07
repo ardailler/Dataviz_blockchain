@@ -7,6 +7,7 @@
 <script>
 import * as d3 from 'd3'
 const csvTransactions = require('@/assets/data/n-transactions.csv')
+const csvBlocks = require('@/assets/data/n-transactions-per-block.csv')
 
 export default {
   name: 'Consommation',
@@ -18,7 +19,7 @@ export default {
       height: 500,
       padding: {
         top: 10,
-        right: 10,
+        right: 60,
         bottom: 55,
         left: 60
       },
@@ -29,10 +30,17 @@ export default {
           dataTransform: null,
           maxValue: null,
           listDate: null
+        },
+        blocks: {
+          data: null,
+          dataTransform: null,
+          maxValue: null,
+          listDate: null
         }
       },
       x: null,
       y: null,
+      y2: null,
       monthNames: ['Jan', 'Freb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
       space: 25,
       line: null,
@@ -48,7 +56,7 @@ export default {
     }, 50)
 
     window.addEventListener('resize', self.handleWindowResize)
-    self.loadData('Years')
+    self.loadData('Days') // Years / Months / Days
     setTimeout(function () {
       self.initGraph()
     }, 1000)
@@ -66,6 +74,7 @@ export default {
         self.height = (document.getElementById('consommation_graph').offsetHeight)
 
         d3.select('.y-axe').remove()
+        d3.select('.y-axe2').remove()
         d3.select('.x-axe').remove()
 
         self.drawYAxe()
@@ -77,33 +86,57 @@ export default {
 
         d3.select('.svg-consommation-g')
           .attr('transform', 'translate(0, 0)')
-        d3.select('.graph-path')
+        d3.select('.graph-path-0')
           .attr('transform', 'translate(' + self.padding.left + ',0)')
           .attr('d', d3.line()
             .x((d) => { return self.x(d.date) })
             .y((d) => { return self.y(d.value) })
           )
+        d3.select('.graph-path-1')
+          .attr('transform', 'translate(' + self.padding.left + ',0)')
+          .attr('d', d3.line()
+            .x((d) => { return self.x(d.date) })
+            .y((d) => { return self.y2(d.value) })
+          )
       }, 500)
     },
+    // fonction qui charge et met en forme les données
     loadData (type) { // Years, Months, Days
       let self = this
+      // load data from transactions
       d3.csv(csvTransactions).then(function (transactions) {
         self.data.transactions.data = self.groupByTime(transactions, type) // Years, Months, Days
         self.data.transactions.dataTransform = self.formaterDate(self.data.transactions.data.children)
         self.data.transactions.maxValue = Math.max(...self.data.transactions.dataTransform.map(function (el) { return el.value }))
         self.data.transactions.listDate = self.data.transactions.dataTransform.map(function (el) { return el.date })
       })
+      // load data from transaction per block
+      d3.csv(csvBlocks).then(function (block) {
+        self.data.blocks.data = self.groupByTime(block, type) // Years, Months, Days
+        self.data.blocks.dataTransform = self.formaterDate(self.data.blocks.data.children)
+        self.data.blocks.maxValue = Math.max(...self.data.blocks.dataTransform.map(function (el) { return el.value }))
+        self.data.blocks.listDate = self.data.blocks.dataTransform.map(function (el) { return el.date })
+      })
     },
     drawYAxe () {
       let self = this
       // Add Y axis
       self.y = d3.scaleLinear()
-        .domain([0, self.maxValue]) // reverse() inverse l'ordre des éléments pour que l'affichage se fasse dans le bon ordre en x : testez sans pour voir ce qui se passe.
+        .domain([0, self.data.transactions.maxValue])
         .range([(self.height - self.padding.bottom), 0])
       self.svg.append('g')
         .attr('class', 'y-axe')
         .attr('transform', 'translate(' + self.padding.left + ',0)')
         .call(d3.axisLeft(self.y))
+
+      // Add Y2 axis
+      self.y2 = d3.scaleLinear()
+        .domain([0, self.data.blocks.maxValue])
+        .range([(self.height - self.padding.bottom), 0])
+      self.svg.append('g')
+        .attr('class', 'y-axe2')
+        .attr('transform', 'translate(' + (self.width - self.padding.right) + ',0)')
+        .call(d3.axisRight(self.y2))
     },
     drawXAxe () {
       let self = this
@@ -144,6 +177,10 @@ export default {
         self.updateLinePos()
       }).on('mousemove', function () {
         self.updateLinePos()
+        if (d3.event.pageX >= self.padding.left && d3.event.pageX <= (self.width - self.padding.right)) {
+          let year = self.x.invert(d3.mouse(this)[0] - (self.padding.left - 1))
+          console.log('year : ', year)
+        }
       })
       d3.select('.svg-consommation')
         .append('g')
@@ -152,12 +189,13 @@ export default {
 
       self.maxValue = self.data.transactions.maxValue
       self.listDate = self.data.transactions.listDate
-      let transactions = self.data.transactions.dataTransform
+      let listOfData = [self.data.transactions.dataTransform, self.data.blocks.dataTransform]
+      let indexAxis = [0, 1]
 
       self.drawYAxe()
       self.drawXAxe()
 
-      self.drawGraph(transactions)
+      self.drawGraph(listOfData, indexAxis)
     },
     updateLinePos () {
       let self = this
@@ -181,20 +219,28 @@ export default {
           .attr('y2', self.height - self.padding.bottom)
       }
     },
-    drawGraph (transactions) {
+    drawGraph (listOfData, indexAxis) {
       let self = this
       // Add the line
-      self.svg.append('path')
-        .datum(transactions)
-        .attr('class', 'graph-path')
-        .attr('fill', 'none')
-        .attr('stroke', 'steelblue')
-        .attr('stroke-width', 1.5)
-        .attr('transform', 'translate(' + self.padding.left + ',0)')
-        .attr('d', d3.line()
-          .x((d) => { return self.x(d.date) })
-          .y((d) => { return self.y(d.value) })
-        )
+      let arrayOfY = [self.y, self.y2]
+      let arrayOfColors = ['#00324a', '#3383a9']
+      for (let index = 0; index < listOfData.length; index++) {
+        self.svg.append('path')
+          .datum(listOfData[index])
+          .attr('class', 'graph-path-' + index)
+          .attr('fill', 'none')
+          .attr('stroke', arrayOfColors[index])
+          .attr('stroke-width', 1.5)
+          .attr('transform', 'translate(' + self.padding.left + ',0)')
+          .attr('d', d3.line()
+            .x((d) => {
+              return self.x(d.date)
+            })
+            .y((d) => {
+              return arrayOfY[indexAxis[index]](d.value)
+            })
+          )
+      }
       return self.svg.node()
     },
     formaterDate (d) {
