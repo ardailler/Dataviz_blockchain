@@ -1,276 +1,124 @@
 <template>
   <div class='page-consommation'>
-    <div id='consommation_graph'></div>
+    <div id="conso_numbers" :class="getDataType" class="row">
+      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1"><span class="cursor"></span>Date : <br>{{getDateCursor}}</p>
+      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1 transacts"><span class="cursor"></span>Transactions : <br>{{transactValue}} / jours</p>
+      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1 blocks"><span class="cursor"></span>Transactions : <br>{{blockValueRound}} / blocks</p>
+      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1 conso"><span class="cursor"></span>Consommation : <br>{{consoValueRound}} {{getConsoType}}</p>
+    </div>
+    <div id="consommations_graph">
+      <div :class="getDataType">
+        <ConsommationsChart ref="consoCharts" :typeGraph="getDataType"></ConsommationsChart>
+      </div>
+    </div>
+    <div id='transactions_graph'>
+      <div :class="getDataType">
+        <TransactionsChart ref="transactCharts"></TransactionsChart>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import * as d3 from 'd3'
-const csvTransactions = require('@/assets/data/n-transactions.csv')
+import TransactionsChart from '@/components/elements/charts/TransactionsChart.vue'
+import ConsommationsChart from '@/components/elements/charts/ConsommationsChart'
 
 export default {
   name: 'Consommation',
   props: {
   },
+  components: {
+    ConsommationsChart,
+    TransactionsChart
+  },
   data () {
     return {
-      width: 500,
-      height: 500,
-      padding: {
-        top: 10,
-        right: 10,
-        bottom: 55,
-        left: 60
-      },
-      svg: null,
-      data: {
-        transactions: {
-          data: null,
-          dataTransform: null,
-          maxValue: null,
-          listDate: null
-        }
-      },
-      x: null,
-      y: null,
-      monthNames: ['Jan', 'Freb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-      space: 25,
-      line: null,
-      options: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
-      options2: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+      consoDate: null,
+      consoValue: null,
+      transactDate: null,
+      transactValue: null,
+      blockValue: null,
+      monthNames: ['Jan', 'Freb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
     }
   },
   mounted () {
     let self = this
-    setTimeout(function () {
-      self.width = document.getElementById('consommation_graph').offsetWidth
-      self.height = document.getElementById('consommation_graph').offsetHeight
-    }, 50)
-
-    window.addEventListener('resize', self.handleWindowResize)
-    self.loadData('Days')
-    setTimeout(function () {
-      self.initGraph()
-    }, 1000)
+    self.updateConsoValues()
+    self.updateTransctValues()
   },
   computed: {
+    getDateCursor () {
+      return this.consoDate ? this.consoDate.getDate() + '-' + this.monthNames[this.consoDate.getMonth()] + '-' + this.consoDate.getFullYear() : ''
+    },
+    getDataType () {
+      return this.$store.getters.allData.switchConso ? 'data' : 'energie'
+    },
+    getConsoType () {
+      return this.$store.getters.allData.switchConso ? 'Mo' : 'Kwh'
+    },
+    blockValueRound () {
+      return parseFloat(this.blockValue).toFixed(2)
+    },
+    consoValueRound () {
+      return parseFloat(this.consoValue).toFixed(2)
+    }
   },
   beforeDestroy () {
-    window.removeEventListener('resize', this.handleWindowResize)
+  },
+  watch: {
+    consoDate: function (val) {
+      this.$refs.transactCharts.getData(val)
+    },
+    transactDate: function (val) {
+      this.$refs.consoCharts.getData(val)
+    }
   },
   methods: {
-    handleWindowResize (event) {
+    updateConsoValues () {
       let self = this
-      setTimeout(function () {
-        self.width = document.getElementById('consommation_graph').offsetWidth
-        self.height = (document.getElementById('consommation_graph').offsetHeight)
-
-        d3.select('.y-axe').remove()
-        d3.select('.x-axe').remove()
-
-        self.drawYAxe()
-        self.drawXAxe()
-
-        d3.select('.svg-consommation')
-          .attr('width', self.width)
-          .attr('height', self.height)
-
-        d3.select('.svg-consommation-g')
-          .attr('transform', 'translate(0, 0)')
-        d3.select('.graph-path')
-          .attr('transform', 'translate(' + self.padding.left + ',0)')
-          .attr('d', d3.line()
-            .x((d) => { return self.x(d.date) })
-            .y((d) => { return self.y(d.value) })
-          )
-      }, 500)
+      self.$watch(
+        () => {
+          return self.$refs.consoCharts.tooltipData
+        },
+        (val) => {
+          self.consoValue = val
+        }
+      )
+      self.$watch(
+        () => {
+          return self.$refs.consoCharts.cursorDate
+        },
+        (val) => {
+          self.consoDate = val
+        }
+      )
     },
-    loadData (type) { // Years, Months, Days
+    updateTransctValues () {
       let self = this
-      d3.csv(csvTransactions).then(function (transactions) {
-        self.data.transactions.data = self.groupByTime(transactions, type) // Years, Months, Days
-        self.data.transactions.dataTransform = self.formaterDate(self.data.transactions.data.children)
-        self.data.transactions.maxValue = Math.max(...self.data.transactions.dataTransform.map(function (el) { return el.value }))
-        self.data.transactions.listDate = self.data.transactions.dataTransform.map(function (el) { return el.date })
-      })
-    },
-    drawYAxe () {
-      let self = this
-      // Add Y axis
-      self.y = d3.scaleLinear()
-        .domain([0, self.maxValue]) // reverse() inverse l'ordre des éléments pour que l'affichage se fasse dans le bon ordre en x : testez sans pour voir ce qui se passe.
-        .range([(self.height - self.padding.bottom), 0])
-      self.svg.append('g')
-        .attr('class', 'y-axe')
-        .attr('transform', 'translate(' + self.padding.left + ',0)')
-        .call(d3.axisLeft(self.y))
-    },
-    drawXAxe () {
-      let self = this
-      // Add X axis
-      self.x = d3.scaleTime()
-        .domain(d3.extent(self.listDate))
-        .range([0, (self.width - self.padding.left - self.padding.right)])
-
-      self.svg.append('g')
-        .attr('class', 'x-axe')
-        .attr('transform', 'translate(' + self.padding.left + ',' + (self.height - self.padding.bottom) + ')')
-        .call(d3.axisBottom(self.x)
-          .tickFormat(d3.timeFormat('%d-%m-%Y'))
-        )
-        .selectAll('text')
-        .style('text-anchor', 'end')
-        .attr('transform', 'rotate(-45)')
-        .attr('y', 5)
-        .attr('x', -10)
-    },
-    initGraph () {
-      let self = this
-      self.svg = d3.select('#consommation_graph')
-        .append('svg')
-        .attr('class', 'svg-consommation')
-        .style('font', '10px sans-serif')
-        .attr('width', self.width)
-        .attr('height', self.height)
-      self.svg
-        .append('line')
-        .attr('class', 'line-pos')
-        .style('stroke', 'black')
-        .attr('x1', 10 + self.padding.left)
-        .attr('y1', 0)
-        .attr('x2', 10 + self.padding.left)
-        .attr('y2', self.height - self.padding.bottom)
-      self.svg.on('mouseenter', function () {
-        self.updateLinePos()
-      }).on('mousemove', function () {
-        self.updateLinePos()
-      })
-      d3.select('.svg-consommation')
-        .append('g')
-        .attr('class', 'svg-consommation-g')
-        .attr('transform', 'translate(0, 0)')
-
-      self.maxValue = self.data.transactions.maxValue
-      self.listDate = self.data.transactions.listDate
-      let transactions = self.data.transactions.dataTransform
-
-      self.drawYAxe()
-      self.drawXAxe()
-
-      self.drawGraph(transactions)
-    },
-    updateLinePos () {
-      let self = this
-      if (d3.event.pageX < self.padding.left) {
-        d3.select('.line-pos')
-          .attr('x1', self.padding.left)
-          .attr('y1', 0)
-          .attr('x2', self.padding.left)
-          .attr('y2', self.height - self.padding.bottom)
-      } else if (d3.event.pageX > (self.width - self.padding.right)) {
-        d3.select('.line-pos')
-          .attr('x1', (self.width - self.padding.right))
-          .attr('y1', 0)
-          .attr('x2', (self.width - self.padding.right))
-          .attr('y2', self.height - self.padding.bottom)
-      } else if (d3.event.pageX >= self.padding.left && d3.event.pageX <= (self.width - self.padding.right)) {
-        d3.select('.line-pos')
-          .attr('x1', d3.event.pageX)
-          .attr('y1', 0)
-          .attr('x2', d3.event.pageX)
-          .attr('y2', self.height - self.padding.bottom)
-      }
-    },
-    drawGraph (transactions) {
-      let self = this
-      // Add the line
-      self.svg.append('path')
-        .datum(transactions)
-        .attr('class', 'graph-path')
-        .attr('fill', 'none')
-        .attr('stroke', 'steelblue')
-        .attr('stroke-width', 1.5)
-        .attr('transform', 'translate(' + self.padding.left + ',0)')
-        .attr('d', d3.line()
-          .x((d) => { return self.x(d.date) })
-          .y((d) => { return self.y(d.value) })
-        )
-      return self.svg.node()
-    },
-    formaterDate (d) {
-      return d.map((el) => { return { date: new Date(el.name), value: parseFloat(el.value) } })
-    },
-    groupByTime (data, time) {
-      let listByTime = {
-        'children': [],
-        'name': 'transactions'
-      } // Création de la liste par années
-      if (time !== 'Days') {
-        data.forEach(d => {
-          let _date = new Date(d.date) // creation d'un objet date à partir de la date de la donnée
-          let _years = listByTime.children // list des années
-          let _yearName = _date.getFullYear().toString() // nom de l'année
-          let _year = _years.find(y => y.name === _yearName) // Check si l'année exist
-
-          if (!_year) { // Verification si l'objet de l'année courrante existe
-            _years.push({
-              'children': [],
-              'name': _yearName
-            }) // Création d'un objet pour cette année
-            _year = _years.find(y => y.name === _yearName)
-          }
-
-          let _months = _year.children
-          let _monthName = this.monthNames[_date.getUTCMonth().toString()] // Nom du mois
-          let _month = _months.find(m => m.name === _monthName) // check si le mois existe
-
-          if (!_month) { // Vérification si l'objet du mois exist pour ce mois
-            _months.push({
-              'children': [],
-              'name': _monthName
-            }) // Création d'un objet pour ce mois
-            _month = _months.find(m => m.name === _monthName)
-          }
-          _month.children.push({
-            'value': d.nombre,
-            'name': _date.getDate()
-          }) // ajout de la donnée
-          // _month['somme'] = _month
-          _month['value'] = _month.children.map(item => { return parseFloat(item.value) }).reduce((prev, curr) => prev + curr, 0)
-          _year['value'] = _year.children.map(item => { return parseFloat(item.value) }).reduce((prev, curr) => prev + curr, 0)
-        })
-      }
-      if (time === 'Years') {
-        listByTime.children.map(item => { delete item['children'] })
-      } else if (time === 'Months') {
-        let months = listByTime.children.map(item => { return item.children.map(child => { child['name'] = child.name + '-' + item.name; return {'name': child.name, 'value': child.value} }) })
-        months = months.flat()
-
-        months = months.sort(function (a, b) {
-          let keyA = new Date(a.name)
-          let keyB = new Date(b.name)
-          // Compare the 2 dates
-          if (keyA < keyB) return -1
-          if (keyA > keyB) return 1
-          return 0
-        })
-
-        months = months.map(item => { return { 'name': new Date(item.name).toLocaleDateString('fr-FR', self.options), value: item.value } })
-        listByTime['children'] = months
-      } else if (time === 'Days') {
-        data = data.sort(function (a, b) {
-          let keyA = new Date(a.date)
-          let keyB = new Date(b.date)
-          // Compare the 2 dates
-          if (keyA < keyB) return -1
-          if (keyA > keyB) return 1
-          return 0
-        })
-
-        data = data.map(item => { return { 'name': new Date(item.date), value: parseFloat(item.nombre) } })
-        listByTime['children'] = data
-      }
-      return listByTime
+      self.$watch(
+        () => {
+          return self.$refs.transactCharts.tooltipData
+        },
+        (val) => {
+          self.transactValue = val
+        }
+      )
+      self.$watch(
+        () => {
+          return self.$refs.transactCharts.tooltipData2
+        },
+        (val) => {
+          self.blockValue = val
+        }
+      )
+      self.$watch(
+        () => {
+          return self.$refs.transactCharts.cursorDate
+        },
+        (val) => {
+          self.transactDate = val
+        }
+      )
     }
   }
 }
@@ -286,11 +134,114 @@ export default {
     background: white;
     padding-top: 64px;
   }
-  #consommation_graph {
+
+  #consommations_graph,
+  #transactions_graph {
     position: relative;
     display: block;
     width: 100%;
-    height: 50%;
-    border: 1px solid black;
+    height: 45%;
+    max-height: 45%;
+    min-height: 45%;
+    overflow: hidden;
+    padding: 20px;
   }
+
+  #conso_numbers {
+    position: relative;
+    width: 100%;
+    height: 10%;
+    max-height: 10%;
+    min-height: 10%;
+    overflow: hidden;
+    padding: 20px;
+  }
+  #conso_numbers > p {
+    position: relative;
+    padding-left: 10px;
+    display: inline-table;
+  }
+  #conso_numbers > p > .cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background-color: black;
+
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+  }
+
+  #conso_numbers.energie > p.conso > .cursor {
+    background-color: var(--color-primary)
+  }
+  #conso_numbers.energie > p.conso {
+    color: var(--color-primary);
+  }
+  #conso_numbers.data > p.conso > .cursor {
+    background-color: var(--color-secondary);
+  }
+  #conso_numbers.data > p.conso {
+    color: var(--color-secondary);
+  }
+  #conso_numbers > p.transacts > .cursor {
+    background-color: #00324a;
+  }
+
+  #conso_numbers > p.blocks > .cursor {
+    background-color: #3383a9;
+  }
+  #conso_numbers > p.transacts {
+    color: #00324a;
+  }
+
+  #conso_numbers > p.blocks {
+    color: #3383a9;
+  }
+
+  #consommations_graph > div {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 2px solid black;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    background-color: white;
+
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+
+  #consommations_graph > .energie {
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+  }
+  #consommations_graph > .data {
+    background-color: var(--color-secondary);
+    border: 2px solid var(--color-secondary);
+  }
+
+  #transactions_graph > div {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 2px solid black;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+  }
+
+  #transactions_graph > .energie {
+    border: 2px solid var(--color-primary);
+  }
+  #transactions_graph > .data {
+    border: 2px solid var(--color-secondary);
+  }
+
 </style>
