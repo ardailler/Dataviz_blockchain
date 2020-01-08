@@ -1,14 +1,14 @@
 <template>
   <div class='page-consommation'>
-    <div id="conso_numbers" class="row">
-      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1">Date : <br>{{getDateCursor}}</p>
-      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1">Transactions : <br>{{transactValue}} / jours</p>
-      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1">Transactions : <br>{{blockValueRound}} / blocks</p>
-      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1">Consommation en Mo : <br>{{consoValueRound}} Mo</p>
+    <div id="conso_numbers" :class="getDataType" class="row">
+      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1"><span class="cursor"></span>Date : <br>{{getDateCursor}}</p>
+      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1 transacts"><span class="cursor"></span>Transactions : <br>{{transactValue}} / jours</p>
+      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1 blocks"><span class="cursor"></span>Transactions : <br>{{blockValueRound}} / blocks</p>
+      <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1 conso"><span class="cursor"></span>Consommation : <br>{{consoValueRound}} {{getConsoType}}</p>
     </div>
     <div id="consommations_graph">
       <div :class="getDataType">
-        <ConsommationsChart ref="consoCharts"></ConsommationsChart>
+        <ConsommationsChart ref="consoCharts" :typeGraph="getDataType"></ConsommationsChart>
       </div>
     </div>
     <div id='transactions_graph'>
@@ -52,6 +52,9 @@ export default {
     },
     getDataType () {
       return this.$store.getters.allData.switchConso ? 'data' : 'energie'
+    },
+    getConsoType () {
+      return this.$store.getters.allData.switchConso ? 'Mo' : 'Kwh'
     },
     blockValueRound () {
       return parseFloat(this.blockValue).toFixed(2)
@@ -137,9 +140,9 @@ export default {
     position: relative;
     display: block;
     width: 100%;
-    height: 40%;
-    max-height: 40%;
-    min-height: 40%;
+    height: 45%;
+    max-height: 45%;
+    min-height: 45%;
     overflow: hidden;
     padding: 20px;
   }
@@ -147,11 +150,55 @@ export default {
   #conso_numbers {
     position: relative;
     width: 100%;
-    height: 20%;
-    max-height: 20%;
-    min-height: 20%;
+    height: 10%;
+    max-height: 10%;
+    min-height: 10%;
     overflow: hidden;
     padding: 20px;
+  }
+  #conso_numbers > p {
+    position: relative;
+    padding-left: 10px;
+    display: inline-table;
+  }
+  #conso_numbers > p > .cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background-color: black;
+
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+  }
+
+  #conso_numbers.energie > p.conso > .cursor {
+    background-color: var(--color-primary)
+  }
+  #conso_numbers.energie > p.conso {
+    color: var(--color-primary);
+  }
+  #conso_numbers.data > p.conso > .cursor {
+    background-color: var(--color-secondary);
+  }
+  #conso_numbers.data > p.conso {
+    color: var(--color-secondary);
+  }
+  #conso_numbers > p.transacts > .cursor {
+    background-color: #00324a;
+  }
+
+  #conso_numbers > p.blocks > .cursor {
+    background-color: #3383a9;
+  }
+  #conso_numbers > p.transacts {
+    color: #00324a;
+  }
+
+  #conso_numbers > p.blocks {
+    color: #3383a9;
   }
 
   #consommations_graph > div {
