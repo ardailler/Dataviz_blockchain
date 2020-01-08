@@ -1,11 +1,12 @@
 <template>
-  <div id="consommations_chart"></div>
+  <div id="consommations_chart">
+  </div>
 </template>
 
 <script>
 
 import * as d3 from 'd3'
-const csvTransactions = require('@/assets/data/n-transactions.csv')
+const csvAvgConsommation = require('@/assets/data/avg-consommation-per-day.csv')
 const csvBlocks = require('@/assets/data/n-transactions-per-block.csv')
 
 export default {
@@ -25,7 +26,7 @@ export default {
       },
       svg: null,
       data: {
-        transactions: {
+        consommations: {
           data: null,
           dataTransform: null,
           maxValue: null,
@@ -40,11 +41,13 @@ export default {
       },
       x: null,
       y: null,
-      y2: null,
+      tooltipData: null,
+      cursorDate: null,
       monthNames: ['Jan', 'Freb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
       space: 25,
       line: null,
-      options: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+      options: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
+      posCurseur: 0
     }
   },
   mounted () {
@@ -79,7 +82,6 @@ export default {
         self.height = (document.getElementById('consommations_chart').offsetHeight)
 
         self.svg.select('.y-axe').remove()
-        self.svg.select('.y-axe2').remove()
         self.svg.select('.x-axe').remove()
 
         self.drawYAxe()
@@ -97,23 +99,17 @@ export default {
             .x((d) => { return self.x(d.date) })
             .y((d) => { return self.y(d.value) })
           )
-        d3.select('.graph-path-1')
-          .attr('transform', 'translate(' + self.padding.left + ',' + self.padding.top + ')')
-          .attr('d', d3.line()
-            .x((d) => { return self.x(d.date) })
-            .y((d) => { return self.y2(d.value) })
-          )
       }, 500)
     },
     // fonction qui charge et met en forme les données
     loadData (type) { // Years, Months, Days
       let self = this
       // load data from transactions
-      d3.csv(csvTransactions).then(function (transactions) {
-        self.data.transactions.data = self.groupByTime(transactions, type) // Years, Months, Days
-        self.data.transactions.dataTransform = self.formaterDate(self.data.transactions.data.children)
-        self.data.transactions.maxValue = Math.max(...self.data.transactions.dataTransform.map(function (el) { return el.value }))
-        self.data.transactions.listDate = self.data.transactions.dataTransform.map(function (el) { return el.date })
+      d3.csv(csvAvgConsommation).then(function (consommation) {
+        self.data.consommations.data = self.groupByTime(consommation, type) // Years, Months, Days
+        self.data.consommations.dataTransform = self.formaterDate(self.data.consommations.data.children)
+        self.data.consommations.maxValue = Math.max(...self.data.consommations.dataTransform.map(function (el) { return el.value }))
+        self.data.consommations.listDate = self.data.consommations.dataTransform.map(function (el) { return el.date })
       })
       // load data from transaction per block
       d3.csv(csvBlocks).then(function (block) {
@@ -127,21 +123,12 @@ export default {
       let self = this
       // Add Y axis
       self.y = d3.scaleLinear()
-        .domain([0, self.data.transactions.maxValue])
+        .domain([0, self.data.consommations.maxValue])
         .range([(self.height - self.padding.bottom - self.padding.top), 0])
       self.svg.append('g')
         .attr('class', 'y-axe')
         .attr('transform', 'translate(' + self.padding.left + ',' + self.padding.top + ')')
         .call(d3.axisLeft(self.y))
-
-      // Add Y2 axis
-      self.y2 = d3.scaleLinear()
-        .domain([0, self.data.blocks.maxValue])
-        .range([(self.height - self.padding.bottom - self.padding.top), 0])
-      self.svg.append('g')
-        .attr('class', 'y-axe2')
-        .attr('transform', 'translate(' + (self.width - self.padding.right) + ',' + self.padding.top + ')')
-        .call(d3.axisRight(self.y2))
     },
     drawXAxe () {
       let self = this
@@ -178,13 +165,14 @@ export default {
         .attr('y1', 0)
         .attr('x2', 10 + self.padding.left)
         .attr('y2', self.height - self.padding.bottom)
+      self.tooltip = d3.select('#tooltip')
       self.svg.on('mouseenter', function () {
         self.updateLinePos()
       }).on('mousemove', function () {
         self.updateLinePos()
-        if ((d3.event.pageX - self.correctionPadding) >= self.padding.left && (d3.event.pageX - self.correctionPadding) <= (self.width - self.padding.right)) {
+        if ((d3.event.pageX - self.correctionPadding) >= self.padding.left + 1 && (d3.event.pageX - self.correctionPadding) <= (self.width - self.padding.right)) {
           let year = self.x.invert(d3.mouse(this)[0] - (self.padding.left - 1))
-          console.log('year : ', year)
+          self.getData(year)
         }
       })
       d3.select('.svg-consommation')
@@ -192,9 +180,9 @@ export default {
         .attr('class', 'svg-consommation-g')
         .attr('transform', 'translate(0, 0)')
 
-      self.maxValue = self.data.transactions.maxValue
-      self.listDate = self.data.transactions.listDate
-      let listOfData = [self.data.transactions.dataTransform, self.data.blocks.dataTransform]
+      self.maxValue = self.data.consommations.maxValue
+      self.listDate = self.data.consommations.listDate
+      let listOfData = [self.data.consommations.dataTransform]
       let indexAxis = [0, 1]
 
       self.drawYAxe()
@@ -202,22 +190,33 @@ export default {
 
       self.drawGraph(listOfData, indexAxis)
     },
+    getData (year) {
+      let self = this
+      let time = year.getDay() + '-' + self.monthNames[year.getMonth()] + '-' + year.getFullYear()
+      let data = self.data.consommations.dataTransform
+      let curanteValue = data.find(h => (h.date.getDay() + '-' + self.monthNames[h.date.getMonth()] + '-' + h.date.getFullYear()) === time).value
+      self.cursorDate = year
+      self.tooltipData = time + ' ' + curanteValue
+    },
     updateLinePos () {
       let self = this
       if ((d3.event.pageX - self.correctionPadding) < self.padding.left) {
-        self.svg.select('.line-pos')
+        self.posCurseur = d3.event.pageX
+        d3.selectAll('.line-pos')
           .attr('x1', self.padding.left)
           .attr('y1', self.padding.top)
           .attr('x2', self.padding.left)
           .attr('y2', self.height - self.padding.bottom)
       } else if ((d3.event.pageX - self.correctionPadding) > (self.width - self.padding.right)) {
-        self.svg.select('.line-pos')
+        self.posCurseur = d3.event.pageX
+        d3.selectAll('.line-pos')
           .attr('x1', (self.width - self.padding.right))
           .attr('y1', self.padding.top)
           .attr('x2', (self.width - self.padding.right))
           .attr('y2', self.height - self.padding.bottom)
       } else if ((d3.event.pageX - self.correctionPadding) >= self.padding.left && (d3.event.pageX - self.correctionPadding) <= (self.width - self.padding.right)) {
-        self.svg.select('.line-pos')
+        self.posCurseur = d3.event.pageX
+        d3.selectAll('.line-pos')
           .attr('x1', (d3.event.pageX - self.correctionPadding))
           .attr('y1', self.padding.top)
           .attr('x2', (d3.event.pageX - self.correctionPadding))
@@ -227,7 +226,7 @@ export default {
     drawGraph (listOfData, indexAxis) {
       let self = this
       // Add the line
-      let arrayOfY = [self.y, self.y2]
+      let arrayOfY = [self.y]
       let arrayOfColors = ['#00324a', '#3383a9']
       for (let index = 0; index < listOfData.length; index++) {
         self.svg.append('path')

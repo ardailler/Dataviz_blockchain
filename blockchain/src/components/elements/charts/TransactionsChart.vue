@@ -41,10 +41,13 @@ export default {
       x: null,
       y: null,
       y2: null,
+      cursorDate: null,
+      tooltipData: null,
       monthNames: ['Jan', 'Freb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
       space: 25,
       line: null,
-      options: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+      options: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
+      posCurseur: 0
     }
   },
   mounted () {
@@ -182,9 +185,9 @@ export default {
         self.updateLinePos()
       }).on('mousemove', function () {
         self.updateLinePos()
-        if ((d3.event.pageX - self.correctionPadding) >= self.padding.left && (d3.event.pageX - self.correctionPadding) <= (self.width - self.padding.right)) {
+        if ((d3.event.pageX - self.correctionPadding) >= self.padding.left + 1 && (d3.event.pageX - self.correctionPadding) <= (self.width - self.padding.right)) {
           let year = self.x.invert(d3.mouse(this)[0] - (self.padding.left - 1))
-          console.log('year : ', year)
+          self.getData(year)
         }
       })
       d3.select('.svg-transaction')
@@ -202,22 +205,33 @@ export default {
 
       self.drawGraph(listOfData, indexAxis)
     },
+    getData (year) {
+      let self = this
+      let time = year.getDay() + '-' + self.monthNames[year.getMonth()] + '-' + year.getFullYear()
+      let data = self.data.transactions.dataTransform
+      let curanteValue = data.find(h => (h.date.getDay() + '-' + self.monthNames[h.date.getMonth()] + '-' + h.date.getFullYear()) === time).value
+      self.cursorDate = year
+      self.tooltipData = time + ' ' + curanteValue
+    },
     updateLinePos () {
       let self = this
       if ((d3.event.pageX - self.correctionPadding) < self.padding.left) {
-        self.svg.select('.line-pos')
+        self.posCurseur = d3.event.pageX
+        d3.selectAll('.line-pos')
           .attr('x1', self.padding.left)
           .attr('y1', self.padding.top)
           .attr('x2', self.padding.left)
           .attr('y2', self.height - self.padding.bottom)
       } else if ((d3.event.pageX - self.correctionPadding) > (self.width - self.padding.right)) {
-        self.svg.select('.line-pos')
+        self.posCurseur = d3.event.pageX
+        d3.selectAll('.line-pos')
           .attr('x1', (self.width - self.padding.right))
           .attr('y1', self.padding.top)
           .attr('x2', (self.width - self.padding.right))
           .attr('y2', self.height - self.padding.bottom)
       } else if ((d3.event.pageX - self.correctionPadding) >= self.padding.left && (d3.event.pageX - self.correctionPadding) <= (self.width - self.padding.right)) {
-        self.svg.select('.line-pos')
+        self.posCurseur = d3.event.pageX
+        d3.selectAll('.line-pos')
           .attr('x1', (d3.event.pageX - self.correctionPadding))
           .attr('y1', self.padding.top)
           .attr('x2', (d3.event.pageX - self.correctionPadding))
