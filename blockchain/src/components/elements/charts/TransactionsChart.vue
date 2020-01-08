@@ -43,6 +43,7 @@ export default {
       y2: null,
       cursorDate: null,
       tooltipData: null,
+      tooltipData2: null,
       monthNames: ['Jan', 'Freb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
       space: 25,
       line: null,
@@ -207,11 +208,14 @@ export default {
     },
     getData (year) {
       let self = this
-      let time = year.getDay() + '-' + self.monthNames[year.getMonth()] + '-' + year.getFullYear()
+      let time = year.getDate() + '-' + self.monthNames[year.getMonth()] + '-' + year.getFullYear()
       let data = self.data.transactions.dataTransform
-      let curanteValue = data.find(h => (h.date.getDay() + '-' + self.monthNames[h.date.getMonth()] + '-' + h.date.getFullYear()) === time).value
+      let data2 = self.data.blocks.dataTransform
+      let curanteValue = data.find(h => (h.date.getDate() + '-' + self.monthNames[h.date.getMonth()] + '-' + h.date.getFullYear()) === time)
+      let curanteValue2 = data2.find(h => (h.date.getDate() + '-' + self.monthNames[h.date.getMonth()] + '-' + h.date.getFullYear()) === time)
       self.cursorDate = year
-      self.tooltipData = time + ' ' + curanteValue
+      self.tooltipData = curanteValue ? curanteValue.value : self.tooltipData
+      self.tooltipData2 = curanteValue2 ? curanteValue2.value : self.tooltipData2
     },
     updateLinePos () {
       let self = this

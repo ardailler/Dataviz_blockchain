@@ -192,11 +192,11 @@ export default {
     },
     getData (year) {
       let self = this
-      let time = year.getDay() + '-' + self.monthNames[year.getMonth()] + '-' + year.getFullYear()
+      let time = year.getDate() + '-' + self.monthNames[year.getMonth()] + '-' + year.getFullYear()
       let data = self.data.consommations.dataTransform
-      let curanteValue = data.find(h => (h.date.getDay() + '-' + self.monthNames[h.date.getMonth()] + '-' + h.date.getFullYear()) === time).value
+      let curanteValue = data.find(h => (h.date.getDate() + '-' + self.monthNames[h.date.getMonth()] + '-' + h.date.getFullYear()) === time)
       self.cursorDate = year
-      self.tooltipData = time + ' ' + curanteValue
+      self.tooltipData = curanteValue ? curanteValue.value : self.tooltipData
     },
     updateLinePos () {
       let self = this
