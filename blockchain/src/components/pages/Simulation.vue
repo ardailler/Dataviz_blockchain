@@ -23,23 +23,23 @@
   <tr>
     <td>Cout consommation d'energies</td>
     <td>{{one_hour_consumption}}€</td>
-    <td>{{one_hour_consumption*24}}€</td>
-    <td>{{one_hour_consumption*168}}€</td>
-    <td>{{one_hour_consumption*730}}€</td>
+    <td>{{mult(one_hour_consumption, 24)}}€</td>
+    <td>{{mult(one_hour_consumption, 168)}}€</td>
+    <td>{{mult(one_hour_consumption, 730)}}€</td>
   </tr>
   <tr>
     <td>Gain de Bitcoin en euros</td>
     <td>{{one_hour_gain}}€</td>
-    <td>{{one_hour_gain*24}}€</td>
-    <td>{{one_hour_gain*168}}€</td>
-    <td>{{one_hour_gain*730}}€</td>
+    <td>{{mult(one_hour_gain, 24)}}€</td>
+    <td>{{mult(one_hour_gain, 168)}}€</td>
+    <td>{{mult(one_hour_gain, 730)}}€</td>
   </tr>
   <tr>
     <td>Benefice  en euros</td>
     <td>{{one_hour_benefit}}€</td>
-    <td>{{one_hour_benefit*24}}€</td>
-    <td>{{one_hour_benefit*168}}€</td>
-    <td>{{one_hour_benefit*730}}€</td>
+    <td>{{mult(one_hour_benefit,24)}}€</td>
+    <td>{{mult(one_hour_benefit,168)}}€</td>
+    <td>{{mult(one_hour_benefit,730)}}€</td>
   </tr>
 </table>
     </div>
@@ -71,6 +71,9 @@ export default {
   watch: {
   },
   methods: {
+    mult (data1, data2) {
+      return parseFloat(data1 * data2).toFixed(2)
+    },
     greet () {
       let blocktime = 6
       let blockreward = 12.5
