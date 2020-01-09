@@ -22,11 +22,19 @@
     <div :class="['affichage col-6 col-m-6', getDataType]">
       <div class="head">
         <div class="content">
-          <div class="text">
-            <p class="subtitle_1">{{annee[indexAnnee]}}</p>
-            <h6><strong>{{getNumber}}</strong></h6>
+          <div class="bitcoinInfo">
+            <IconType :name="'Bitcoin'"></IconType>
+            <div class="text">
+              <p class="body_2"><strong>{{getConsoYear}} Kw</strong></p>
+            </div>
           </div>
-          <IconType :name="getIcon"></IconType>
+          <div class="typeInfo">
+            <div class="text">
+              <p class="subtitle_1">1 = {{getConsoType}} Kwh</p>
+              <h6><strong>{{getNumber}}</strong></h6>
+            </div>
+            <IconType :name="getIcon"></IconType>
+          </div>
         </div>
       </div>
       <div class="body">
@@ -54,7 +62,9 @@ export default {
       indexConsoNrg: -1,
       annee: ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
       indexAnnee: 10,
-      numberConso: 0
+      numberConso: 0,
+      consoType: 0,
+      consoYear: 0
     }
   },
   components: {
@@ -66,6 +76,8 @@ export default {
   mounted () {
     let self = this
     self.updateGraphIconNumber()
+    self.updateGraphIconConso()
+    self.updateGraphYearConso()
   },
   computed: {
     getDataType () {
@@ -79,6 +91,12 @@ export default {
     },
     getNumber () {
       return this.numberConso.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    getConsoType () {
+      return this.consoType.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    getConsoYear () {
+      return parseFloat(this.consoYear).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     }
   },
   methods: {
@@ -114,6 +132,28 @@ export default {
         },
         (val) => {
           self.numberConso = val
+        }
+      )
+    },
+    updateGraphIconConso () {
+      let self = this
+      self.$watch(
+        () => {
+          return self.$refs.graphIcons.consoType
+        },
+        (val) => {
+          self.consoType = val
+        }
+      )
+    },
+    updateGraphYearConso () {
+      let self = this
+      self.$watch(
+        () => {
+          return self.$refs.graphIcons.consoYear
+        },
+        (val) => {
+          self.consoYear = val
         }
       )
     }
@@ -163,9 +203,25 @@ export default {
 
   .affichage > .head {
     position: relative;
-    display: bloc;
+    display: block;
     width: 100%;
     padding: 10px;
+  }
+  .affichage .bitcoinInfo {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: end;
+  }
+  .affichage .bitcoinInfo p {
+    padding: 10px;
+  }
+  .affichage .typeInfo {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    text-align: end;
   }
   .affichage > .head > .content {
     position: relative;
