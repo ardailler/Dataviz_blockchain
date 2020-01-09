@@ -153,7 +153,7 @@ export default {
     height: 10%;
     max-height: 10%;
     min-height: 10%;
-    overflow: hidden;
+    /*overflow: hidden;*/
     padding: 20px 20px 0 20px;
     display: flex;
     align-items: center;
