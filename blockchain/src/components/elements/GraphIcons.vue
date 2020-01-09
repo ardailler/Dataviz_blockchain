@@ -255,7 +255,7 @@ export default {
     position: relative;
     display: flex;
     flex-flow: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: flex-start;
     width: 100%;
     height: calc(100vh - 248px);
