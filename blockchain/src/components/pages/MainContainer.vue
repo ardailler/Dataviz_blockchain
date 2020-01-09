@@ -17,6 +17,10 @@
     </FullpageSection>
 
     <FullpageSection>
+      <Banque></Banque>
+    </FullpageSection>
+
+    <FullpageSection>
       <FooterPage></FooterPage>
     </FullpageSection>
   </full-page>
@@ -29,6 +33,7 @@ import Introduction from '@/components/pages/Introduction.vue'
 import Comparaison from '@/components/pages/Comparaison.vue'
 import Consommation from '@/components/pages/Consommation.vue'
 import Simulation from '@/components/pages/Simulation.vue'
+import Banque from '@/components/pages/Banque.vue'
 import FooterPage from '@/components/pages/FooterPage.vue'
 
 import '@/assets/plugin/fullpage.min.css'
@@ -43,6 +48,7 @@ export default {
     Comparaison,
     Consommation,
     Simulation,
+    Banque,
     FooterPage
   },
   data () {
@@ -55,11 +61,11 @@ export default {
         menu: '#menu',
         lockAnchors: true,
         scrollingSpeed: 800,
-        sectionsColor: ['white', 'white', 'white', 'black'],
-        anchors: ['Introduction', 'Consommations', 'Comparaisons·des·consommations', 'Simulation', 'FooterPage'],
+        sectionsColor: ['white', 'white', 'white', 'white', 'white', 'black'],
+        anchors: ['Introduction', 'Consommations', 'Comparaisons·des·consommations', 'Simulation', 'Système·bancaire', 'FooterPage'],
         navigation: true,
         navigationPosition: 'right',
-        navigationTooltips: ['Introduction', 'Consommations', 'Comparaisons·des·consommations', 'Simulation', 'Ressources'],
+        navigationTooltips: ['Introduction', 'Consommations', 'Comparaisons·des·consommations', 'Simulation', 'Système·bancaire', 'Ressources'],
         scrollOverflow: true,
         scrollOverflowReset: true,
         showActiveTooltip: false,
