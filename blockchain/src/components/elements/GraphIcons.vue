@@ -93,7 +93,9 @@ export default {
         if (type) {
           self.consoType = type.children.find(y => new Date(y.name).getFullYear().toString() === self.year)
           if (self.consoType) {
-            self.consoNumber = parseFloat(self.consoYear.value / parseFloat(self.consoType.value)).toFixed(2)
+            self.consoYear = self.consoYear.value
+            self.consoType = self.consoType.value
+            self.consoNumber = parseFloat(self.consoYear / parseFloat(self.consoType)).toFixed(2)
           }
         }
       }

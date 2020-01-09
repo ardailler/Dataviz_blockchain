@@ -32,6 +32,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .Bitcoin {
+    background: transparent url('../../assets/img/icons/bitcoin_black.svg') no-repeat 50% 50% / contain;
+  }
   .Eolienne {
     background: transparent url('../../assets/img/icons/eolienne.svg') no-repeat 50% 50% / contain;
   }
