@@ -205,6 +205,13 @@ export default {
       self.drawXAxe()
 
       self.drawGraph(listOfData, indexAxis)
+
+      // This block enables to fill the date / transactions ... text with a base value (the last date)
+      // We do it only here because it will be the last module called on load that is changing the data
+      // resource of the Consommation.vue container
+      if (self.listDate.length !== 0) {
+        self.getData(self.listDate[self.listDate.length - 1])
+      }
     },
     getData (year) {
       let self = this
