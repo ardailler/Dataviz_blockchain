@@ -5,17 +5,17 @@
         <h6>Types :</h6>
         <p class="subtitle_2">Production :</p>
         <div v-for="(item, index) in listProdNrg" v-bind:key="(index+'-prod')" class="icons">
-          <ButtonType :name="item" :id="index" :active="prodIsActive(index)" :color="'energie'" @clickOnType="prodNrgClick"></ButtonType>
+          <ButtonType :name="item" :id="index" :active="prodIsActive(index)" :color="getDataType" @clickOnType="prodNrgClick"></ButtonType>
         </div>
         <p class="subtitle_2">Consommation :</p>
         <div v-for="(item, index) in listConsoNrg" v-bind:key="(index+'-conso')" class="icons">
-          <ButtonType :name="item" :id="index" :active="consoIsActive(index)" :color="'energie'" @clickOnType="consoNrgClick"></ButtonType>
+          <ButtonType :name="item" :id="index" :active="consoIsActive(index)" :color="getDataType" @clickOnType="consoNrgClick"></ButtonType>
         </div>
       </div>
       <div class="years">
         <h6>Dates :</h6>
         <div v-for="(item, index) in annee" :key="(index+'-annee')" class="icons">
-          <ButtonYear :name="item" :id="index" :active="anneeIsActive(index)" :color="'energie'" @clickOnType="anneeClick"></ButtonYear>
+          <ButtonYear :name="item" :id="index" :active="anneeIsActive(index)" :color="getDataType" @clickOnType="anneeClick"></ButtonYear>
         </div>
       </div>
     </div>
@@ -176,12 +176,34 @@ export default {
     -moz-border-radius: 25px;
     border-radius: 25px;
     padding: 20px;
+
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+    -webkit-transition: 0.25s ease;
+    -moz-transition: 0.25s ease;
+    -ms-transition: 0.25s ease;
+    -o-transition: 0.25s ease;
+    transition: 0.25s ease;
   }
   .affichage.energie > .head > .content {
     background-color: var(--color-primary);
+
+    -webkit-transition: 0.25s ease;
+    -moz-transition: 0.25s ease;
+    -ms-transition: 0.25s ease;
+    -o-transition: 0.25s ease;
+    transition: 0.25s ease;
   }
   .affichage.data > .head > .content {
     background-color: var(--color-secondary);
+
+    -webkit-transition: 0.25s ease;
+    -moz-transition: 0.25s ease;
+    -ms-transition: 0.25s ease;
+    -o-transition: 0.25s ease;
+    transition: 0.25s ease;
   }
 
   .affichage .body {
