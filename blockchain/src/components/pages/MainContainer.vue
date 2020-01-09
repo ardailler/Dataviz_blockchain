@@ -51,12 +51,16 @@ export default {
         navigation: true,
         navigationPosition: 'right',
         navigationTooltips: ['Introduction', 'Consommations', 'Comparaisons', 'Footer'],
+        scrollOverflow: true,
+        scrollOverflowReset: true,
         showActiveTooltip: false,
         slidesNavigation: true,
         slidesNavPosition: 'bottom',
 
         // Accessibility
         keyboardScrolling: true,
+
+        lazyLoading: true,
 
         // callback
         afterLoad: this.onLeave,

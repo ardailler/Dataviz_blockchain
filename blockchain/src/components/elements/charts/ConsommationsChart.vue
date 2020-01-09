@@ -42,8 +42,6 @@ export default {
       tooltipData: null,
       cursorDate: null,
       monthNames: ['Jan', 'Freb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-      space: 25,
-      line: null,
       options: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
       posCurseur: 0
     }

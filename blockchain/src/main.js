@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import VueFullPage from 'vue-fullpage.js'
+import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverflow:true
 
 Vue.use(VueFullPage)
 Vue.config.productionTip = false
