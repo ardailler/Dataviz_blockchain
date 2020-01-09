@@ -11,6 +11,11 @@
     <FullpageSection>
       <Comparaison></Comparaison>
     </FullpageSection>
+
+    <FullpageSection>
+      <Simulation></Simulation>
+    </FullpageSection>
+
     <FullpageSection>
 
     </FullpageSection>
@@ -23,6 +28,7 @@ import FullpageSection from '@/components/elements/FullpageSection.vue'
 import Introduction from '@/components/pages/Introduction.vue'
 import Comparaison from '@/components/pages/Comparaison.vue'
 import Consommation from '@/components/pages/Consommation.vue'
+import Simulation from '@/components/pages/Simulation.vue'
 
 import '@/assets/plugin/fullpage.min.css'
 
@@ -34,7 +40,8 @@ export default {
     FullpageSection,
     Introduction,
     Comparaison,
-    Consommation
+    Consommation,
+    Simulation
   },
   data () {
     return {
@@ -47,10 +54,10 @@ export default {
         lockAnchors: true,
         scrollingSpeed: 800,
         sectionsColor: ['white', 'white', 'white', 'black'],
-        anchors: ['Introduction', 'Consommations', 'Comparaisons', 'Footer'],
+        anchors: ['Introduction', 'Consommations', 'Comparaisons', 'Simulation', 'Footer'],
         navigation: true,
         navigationPosition: 'right',
-        navigationTooltips: ['Introduction', 'Consommations', 'Comparaisons', 'Footer'],
+        navigationTooltips: ['Introduction', 'Consommations', 'Comparaisons', 'Simulation', 'Footer'],
         showActiveTooltip: false,
         slidesNavigation: true,
         slidesNavPosition: 'bottom',
