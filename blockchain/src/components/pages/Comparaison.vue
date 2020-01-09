@@ -24,13 +24,13 @@
         <div class="content">
           <div class="text">
             <p class="subtitle_1">{{annee[indexAnnee]}}</p>
-            <h6><strong>155200</strong></h6>
+            <h6><strong>{{getNumber}}</strong></h6>
           </div>
           <IconType :name="getIcon"></IconType>
         </div>
       </div>
       <div class="body">
-        <GraphIcons :color="getDataType"></GraphIcons>
+        <GraphIcons :name="getIcon" :year="getYear" :color="getDataType" ref="graphIcons"></GraphIcons>
       </div>
     </div>
   </div>
@@ -53,7 +53,8 @@ export default {
       indexProdNrg: 0,
       indexConsoNrg: -1,
       annee: ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
-      indexAnnee: 10
+      indexAnnee: 10,
+      numberConso: 0
     }
   },
   components: {
@@ -63,6 +64,8 @@ export default {
     GraphIcons
   },
   mounted () {
+    let self = this
+    self.updateGraphIconNumber()
   },
   computed: {
     getDataType () {
@@ -70,6 +73,12 @@ export default {
     },
     getIcon () {
       return this.indexProdNrg !== -1 ? this.listProdNrg[this.indexProdNrg] : this.listConsoNrg[this.indexConsoNrg]
+    },
+    getYear () {
+      return this.indexAnnee !== -1 ? this.annee[this.indexAnnee] : 2019
+    },
+    getNumber () {
+      return this.numberConso.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     }
   },
   methods: {
@@ -96,6 +105,17 @@ export default {
     },
     anneeIsActive (index) {
       return this.indexAnnee === index
+    },
+    updateGraphIconNumber () {
+      let self = this
+      self.$watch(
+        () => {
+          return self.$refs.graphIcons.consoNumber
+        },
+        (val) => {
+          self.numberConso = val
+        }
+      )
     }
   }
 }

@@ -1,8 +1,6 @@
 <template>
   <div :class="['graphIcons', color]" >
-    <div v-for="(item, index) in getNumber" :class="['icons', name]">
-      {{item}}
-    </div>
+    <div v-for="(item, index) in getNumber" v-bind:key="(index+'-iconsG')" :class="['icons', name]" :style="'width: calc(100% / (' + getRatio + '));height: calc(100% / (' + getRatio + ' + 2));'"></div>
   </div>
 </template>
 
@@ -43,7 +41,15 @@ export default {
       options: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
       consoYear: null,
       consoType: null,
-      consoNumber: null
+      consoNumber: 0
+    }
+  },
+  watch: {
+    name: function (val) {
+      this.calcGraph()
+    },
+    year: function (val) {
+      this.calcGraph()
     }
   },
   mounted () {
@@ -57,7 +63,10 @@ export default {
   },
   computed: {
     getNumber () {
-      return parseInt(this.consoNumber)
+      return parseInt(this.consoNumber) <= 1000 ? parseInt(this.consoNumber) : 1000
+    },
+    getRatio () {
+      return Math.sqrt(this.getNumber)
     }
   },
   methods: {
@@ -85,9 +94,6 @@ export default {
           self.consoType = type.children.find(y => new Date(y.name).getFullYear().toString() === self.year)
           if (self.consoType) {
             self.consoNumber = parseFloat(self.consoYear.value / parseFloat(self.consoType.value)).toFixed(2)
-            console.log(self.consoYear)
-            console.log(self.consoType)
-            console.log(self.consoNumber)
           }
         }
       }
@@ -207,7 +213,7 @@ export default {
     background: transparent url('../../assets/img/icons/central.svg') no-repeat 50% 50% / contain;
   }
   .Barrage {
-    background: transparent url('../../assets/img/icons/washer.svg') no-repeat 50% 50% / contain;
+    background: transparent url('../../assets/img/icons/water-energy.svg') no-repeat 50% 50% / contain;
   }
   .Solaire {
     background: transparent url('../../assets/img/icons/solar.svg') no-repeat 50% 50% / contain;
@@ -245,7 +251,10 @@ export default {
 
   .graphIcons {
     position: relative;
-    display: block;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
     height: calc(100vh - 248px);
     padding: 10px;
@@ -262,6 +271,11 @@ export default {
 
   .graphIcons.data {
     background-color: var(--color-secondary);
+  }
+
+  .graphIcons .icons {
+    position: relative;
+    display: block;
   }
 
   @media only screen and (min-width: 768px) {

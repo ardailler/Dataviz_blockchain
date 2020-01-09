@@ -55,7 +55,7 @@ export default {
     background: transparent url('../../assets/img/icons/central.svg') no-repeat 50% 50% / 32px;
   }
   .Barrage {
-    background: transparent url('../../assets/img/icons/washer.svg') no-repeat 50% 50% / 32px;
+    background: transparent url('../../assets/img/icons/water-energy.svg') no-repeat 50% 50% / 32px;
   }
   .Solaire {
     background: transparent url('../../assets/img/icons/solar.svg') no-repeat 50% 50% / 32px;
