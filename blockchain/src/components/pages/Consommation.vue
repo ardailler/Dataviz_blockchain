@@ -130,7 +130,7 @@ export default {
     position: relative;
     display: block;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background: white;
     padding-top: 64px;
   }
@@ -154,7 +154,9 @@ export default {
     max-height: 10%;
     min-height: 10%;
     overflow: hidden;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
+    display: flex;
+    align-items: center;
   }
   #conso_numbers > p {
     position: relative;

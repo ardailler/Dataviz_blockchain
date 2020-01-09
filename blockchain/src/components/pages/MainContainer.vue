@@ -54,16 +54,20 @@ export default {
         lockAnchors: true,
         scrollingSpeed: 800,
         sectionsColor: ['white', 'white', 'white', 'black'],
-        anchors: ['Introduction', 'Consommations', 'Comparaisons', 'Simulation', 'Footer'],
+        anchors: ['Introduction', 'Consommations','Comparaisons·des·consommations', 'Simulation', 'Footer'],
         navigation: true,
         navigationPosition: 'right',
-        navigationTooltips: ['Introduction', 'Consommations', 'Comparaisons', 'Simulation', 'Footer'],
+        navigationTooltips: ['Introduction', 'Consommations','Comparaisons·des·consommations','Simulation', 'Footer'],
+        scrollOverflow: true,
+        scrollOverflowReset: true,
         showActiveTooltip: false,
         slidesNavigation: true,
         slidesNavPosition: 'bottom',
 
         // Accessibility
         keyboardScrolling: true,
+
+        lazyLoading: true,
 
         // callback
         afterLoad: this.onLeave,
