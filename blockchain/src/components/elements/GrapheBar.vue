@@ -87,7 +87,6 @@ export default {
         self.data.transactions.data = transac
       })
       d3.csv(csvBqConso).then(function (conso) {
-        console.log(conso)
         conso.forEach((d, index) => {
           d['date'] = parseInt(new Date(d['date']).getFullYear().toString())
           d['VISA'] = parseFloat(d['VISA'])
