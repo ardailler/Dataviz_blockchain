@@ -1,13 +1,13 @@
 <template>
   <div class='page-consommation'>
-    <h6 style="font-size: 1.3em; margin-left: 2em; margin-right: 2em;">
+    <p class="body_2">
       Les cryptomonnaies se reposent sur un système de minage : des machines
       effectuent des calculs complexes afin de valider des transactions (le
       <em>minage</em>). La complexité des calculs et la puissance des machines
       augmentent avec le temps. Il est possible de réaliser un bénéfice si le
       coût énergétique du minage est plus faible que le prix de revente de la
       monnaie minée.
-    </h6>
+    </p>
 
     <div id="calcul_value"  class="row">
       <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_2 ex"><span class="cursor"></span>Taux de Hachage : <input v-model="glob_hash" type="number" placeholder="Hachage en Thash/s ">
@@ -109,7 +109,7 @@ export default {
     width: 100%;
     height: 100%;
     background: white;
-    padding-top: 64px;
+    padding: 84px 20px 20px 20px;
   }
 
   table {
@@ -124,7 +124,7 @@ export default {
 
 .ex{
   text-align : center;
-  padding-top : 8%;
+  padding-top : 30px;
   padding-bottom : 1%;
   }
 
