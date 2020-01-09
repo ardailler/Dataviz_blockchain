@@ -257,7 +257,7 @@ export default {
           let _yearName = _date.getFullYear().toString() // nom de l'année
           let _year = _years.find(y => y.name === _yearName) // Check si l'année exist
 
-          if (!_year) { // Verification si l'objet de l'année courrante existe
+          if (!_year) { // Verification si l'objet de l'année courante existe
             _years.push({
               'children': [],
               'name': _yearName
