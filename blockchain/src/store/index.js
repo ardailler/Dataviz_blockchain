@@ -7,7 +7,7 @@ const store = new Vuex.Store({
   state: {
     showNav: false,
     slideName: '',
-    switchConso: true
+    switchConso: false
   },
   getters: {
     allData: state => {

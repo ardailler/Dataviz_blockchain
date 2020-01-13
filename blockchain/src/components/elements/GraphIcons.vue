@@ -40,7 +40,14 @@ export default {
       monthNames: ['Jan', 'Freb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
       options: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
       consoYear: null,
+      minConso: null,
+      minConsoIndex: null,
+      maxConso: null,
+      maxConsoIndex: null,
+      ecartRelatif: null,
+      longueur: 1000,
       consoType: null,
+      echelleLog: 0.0,
       consoNumber: 0
     }
   },
@@ -63,7 +70,7 @@ export default {
   },
   computed: {
     getNumber () {
-      return parseInt(this.consoNumber) <= 1000 ? parseInt(this.consoNumber) : 1000
+      return parseInt(this.echelleLog)
     },
     getRatio () {
       return Math.sqrt(this.getNumber)
@@ -85,6 +92,36 @@ export default {
     formaterDate (d) {
       return d.map((el) => { return { date: new Date(el.name), value: parseFloat(el.value) } })
     },
+    getMinMaxConso (consoType) {
+      let self = this
+      self.data.annees.data.children.forEach(function (d) {
+        let conso = parseFloat(d.value / parseFloat(consoType)).toFixed(2)
+        if (self.minConso) {
+          if (parseFloat(self.minConso) !== 0.0) {
+            if (conso <= self.minConso && conso !== 0.0) {
+              self.minConso = conso
+              self.minConsoIndex = d.name
+            }
+          } else {
+            self.minConso = conso
+            self.minConsoIndex = d.name
+          }
+        } else {
+          self.minConso = conso
+          self.minConsoIndex = d.name
+        }
+        if (self.maxConso) {
+          if (conso >= self.minConso) {
+            self.maxConso = conso
+            self.maxConsoIndex = d.name
+          }
+        } else {
+          self.maxConso = conso
+          self.maxConsoIndex = d.name
+        }
+      })
+      self.ecartRelatif = parseFloat(parseFloat(self.maxConso) / parseFloat(self.minConso))
+    },
     calcGraph () {
       let self = this
       self.consoYear = self.data.annees.data.children.find(y => y.name === self.year)
@@ -95,7 +132,10 @@ export default {
           if (self.consoType) {
             self.consoYear = self.consoYear.value
             self.consoType = self.consoType.value
+            self.getMinMaxConso(self.consoType)
             self.consoNumber = parseFloat(self.consoYear / parseFloat(self.consoType)).toFixed(2)
+            let consoPlusUn = parseFloat(self.consoNumber) + 1.0
+            self.echelleLog = parseFloat((self.longueur * Math.log10(consoPlusUn)) / Math.log10(self.ecartRelatif)).toFixed(2)
           }
         }
       }

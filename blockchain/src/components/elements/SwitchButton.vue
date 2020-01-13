@@ -36,8 +36,8 @@ export default {
   .switch_button {
     position: relative;
     display: flex;
-    width: 48px;
-    height: 24px;
+    width: 64px;
+    height: 32px;
     background-color: var(--color-primary);
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
@@ -88,8 +88,8 @@ export default {
   .selector {
     position: absolute;
     display: block;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     background-color: white;
     border: 1px solid var(--color-primary-30);
     -webkit-border-radius: 50px;
@@ -109,10 +109,10 @@ export default {
     transition: .25s ease;
   }
   .switch_button.activate .selector {
-    -webkit-transform: scale(.9) translateX(26px);
-    -moz-transform: scale(.9) translateX(26px);
-    -ms-transform: scale(.9) translateX(26px);
-    -o-transform: scale(.9) translateX(26px);
-    transform: scale(.9) translateX(26px);
+    -webkit-transform: scale(.9) translateX(36px);
+    -moz-transform: scale(.9) translateX(36px);
+    -ms-transform: scale(.9) translateX(36px);
+    -o-transform: scale(.9) translateX(36px);
+    transform: scale(.9) translateX(36px);
   }
 </style>

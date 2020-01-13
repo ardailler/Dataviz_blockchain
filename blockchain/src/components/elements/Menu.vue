@@ -72,7 +72,7 @@ export default {
     height: 100%;
   }
   #nav .title > * {
-    margin-right: 10px;
+    margin-right: 20px;
   }
   #nav .title > h6 {
     position: absolute;
@@ -93,12 +93,13 @@ export default {
     display: flex;
     align-items: center;
     height: 100%;
+
   }
   #nav > .switch-button > .icon {
     position: relative;
     display: block;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
 
     -webkit-transition: .25s ease;
     -moz-transition: .25s ease;
@@ -109,16 +110,32 @@ export default {
     filter: grayscale(100%);
     -ms-filter: grayscale(100%);
     -webkit-filter: grayscale(100%);
+
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
   }
   #nav > .switch-button > .icon.activated {
     filter: grayscale(0%);
     -ms-filter: grayscale(0%);
     -webkit-filter: grayscale(0%);
+
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    transform: scale(1.5);
+
   }
   #nav > .switch-button > .icon.data {
-    background: transparent url('../../assets/img/data-storage.svg') no-repeat 50% 50% / 16px;
+    background: transparent url('../../assets/img/data-storage.svg') no-repeat 50% 50% / 24px;
   }
   #nav > .switch-button > .icon.energie {
-    background: transparent url('../../assets/img/energie.svg') no-repeat 50% 50% / 16px;
+    background: transparent url('../../assets/img/energie.svg') no-repeat 50% 50% / 24px;
+  }
+  #nav .switch_button {
+    margin: 0 10px;
   }
 </style>
