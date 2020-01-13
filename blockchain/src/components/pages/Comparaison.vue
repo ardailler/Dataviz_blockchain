@@ -223,6 +223,9 @@ export default {
     justify-content: flex-end;
     text-align: end;
   }
+  .affichage .typeInfo .text {
+    margin-right: 10px;
+  }
   .affichage > .head > .content {
     position: relative;
     display: flex;

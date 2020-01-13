@@ -228,7 +228,7 @@ export default {
         .datum(data)
         .attr('class', 'graph-path-0')
         .attr('fill', 'none')
-        .attr('stroke', '#00324a')
+        .attr('stroke', 'black')
         .attr('stroke-width', 1.5)
         .attr('transform', 'translate(' + self.padding.left + ',' + self.padding.top + ')')
         .attr('d', d3.line()
