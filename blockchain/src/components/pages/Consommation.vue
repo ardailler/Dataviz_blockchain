@@ -1,6 +1,12 @@
 <template>
   <div class='page-consommation'>
     <div id="conso_numbers" :class="getDataType" class="row">
+      <InfoSection>
+        <p class="subtitle_2">Explication :</p>
+        <p class="body_2">Cette page présente deux graphiques, le premiers la consommations des données en Kwh ou en Mo du Bitcoin.
+          Cette consommation est calculé à l'aide du nombre de transaction par jour, du nombre de transactions par blocks et de la consommation d'un blocks.</p>
+
+      </InfoSection>
       <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1"><span class="cursor"></span>Date : <br>{{getDateCursor}}</p>
       <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1 transacts"><span class="cursor"></span>Transactions : <br>{{transactValue}} / jours</p>
       <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1 blocks"><span class="cursor"></span>Transactions : <br>{{blockValueRound}} / blocks</p>
@@ -24,6 +30,7 @@
 <script>
 import TransactionsChart from '@/components/elements/charts/TransactionsChart.vue'
 import ConsommationsChart from '@/components/elements/charts/ConsommationsChart'
+import InfoSection from '@/components/elements/InfoSection'
 
 export default {
   name: 'Consommation',
@@ -31,7 +38,8 @@ export default {
   },
   components: {
     ConsommationsChart,
-    TransactionsChart
+    TransactionsChart,
+    InfoSection
   },
   data () {
     return {
@@ -255,5 +263,4 @@ export default {
   #transactions_graph > .data {
     border: 2px solid var(--color-secondary);
   }
-
 </style>
