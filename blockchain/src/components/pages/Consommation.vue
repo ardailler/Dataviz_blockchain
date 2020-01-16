@@ -3,9 +3,10 @@
     <div id="conso_numbers" :class="getDataType" class="row">
       <InfoSection>
         <p class="subtitle_2">Explication :</p>
-        <p class="body_2">Cette page présente deux graphiques, le premiers la consommations des données en Kwh ou en Mo du Bitcoin.
-          Cette consommation est calculé à l'aide du nombre de transaction par jour, du nombre de transactions par blocks et de la consommation d'un blocks.</p>
-
+        <p class="body_2">Cette page présente deux graphiques.</p>
+        <p class="body_2">Le premier représente la consommation des données en Kwh ou en Mo du Bitcoin.
+          Cette consommation est calculée à l'aide du nombre de transactions par jour, du nombre de transactions par blocks et de la consommation d'un block.</p>
+        <p class="body_2">Le second représente le nombre de transactions par jour (en bleu foncé) et le nombre de transactions par blocks (en bleu).</p>
       </InfoSection>
       <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1"><span class="cursor"></span>Date : <br>{{getDateCursor}}</p>
       <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1 transacts"><span class="cursor"></span>Transactions : <br>{{transactValue}} / jours</p>
