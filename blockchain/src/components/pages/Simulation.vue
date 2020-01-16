@@ -149,18 +149,22 @@ export default {
     background-color: lightgrey;
     padding: 20px;
     margin-bottom: 10px;
-
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-    border-radius: 25px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-transition: .25s ease;
+    -moz-transition: .25s ease;
+    -ms-transition: .25s ease;
+    -o-transition: .25s ease;
+    transition: .25s ease;
   }
 
   #calcul_value.energie .input_container {
-    background-color: var(--color-primary-50);
+    background-color: var(--color-primary);
   }
 
   #calcul_value.data .input_container {
-    background-color: var(--color-secondary-50);
+    background-color: var(--color-secondary);
   }
 
   #calcul_value button {
@@ -216,13 +220,11 @@ export default {
     display: block;
     width: 100%;
     height: 40px;
+    background-color: transparent;
     border: none;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    background-color: rgba(255,255,255,0.5);
     padding: 5px;
     outline: none;
+    border-bottom: 3px solid white;
   }
 
   .table_container > div {
@@ -243,13 +245,19 @@ export default {
   }
 
   .table_container.energie td{
-    background-color: var(--color-primary-60);
+    background-color: var(--color-primary-50);
   }
   .table_container.data td{
-    background-color: var(--color-secondary-60);
+    background-color: var(--color-secondary-50);
   }
   td {
     padding: 10px;
+
+    -webkit-transition: .25s ease;
+    -moz-transition: .25s ease;
+    -ms-transition: .25s ease;
+    -o-transition: .25s ease;
+    transition: .25s ease;
   }
   tr td:nth-child(1) {
     padding-left: 20px;

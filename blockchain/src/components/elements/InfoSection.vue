@@ -65,6 +65,11 @@ export default {
   .infoSection.energie .content {
     background-color: var(--color-primary);
     z-index: 999;
+    -webkit-transition: .25s ease;
+    -moz-transition: .25s ease;
+    -ms-transition: .25s ease;
+    -o-transition: .25s ease;
+    transition: .25s ease;
   }
   .black_bg {
     position: absolute;
@@ -104,6 +109,11 @@ export default {
     margin-right: 10px;
     padding: 20px;
     opacity: 0;
+    -webkit-transition: .25s ease;
+    -moz-transition: .25s ease;
+    -ms-transition: .25s ease;
+    -o-transition: .25s ease;
+    transition: .25s ease;
 
     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -127,6 +137,11 @@ export default {
     border-radius: 50px;
     cursor: pointer;
     color: black;
+    -webkit-transition: .25s ease;
+    -moz-transition: .25s ease;
+    -ms-transition: .25s ease;
+    -o-transition: .25s ease;
+    transition: .25s ease;
   }
 
   .icon_button p {
