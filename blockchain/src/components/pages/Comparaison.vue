@@ -2,7 +2,7 @@
   <div class='page-comparaison row'>
     <InfoSection :top="64">
       <p class="subtitle_2">Explication :</p>
-      <p class="body_2">Cette page permet de comparer la consommation du bitcoin par an avec d'autres objets.</p>
+      <p class="body_2">Cette page permet de comparer la consommation (minage + transaction) du bitcoin par an avec d'autres objets.</p>
       <p class="body_2">La partie de gauche de cette page permet de sélectionner un 'objet' et une année, et la partie de droite vous donne une visualisation de deux manière différente.</p>
       <p class="body_2">En haut à droite, vous avez donc 3 chiffres,
         la consommation du bitcoin l'année sélectionnée,
