@@ -1,6 +1,16 @@
 <template>
   <div class='page-comparaison row'>
-    <div class="selection col-6 col-m-6">
+    <InfoSection :top="64">
+      <p class="subtitle_2">Explication :</p>
+      <p class="body_2">Cette page permet de comparer la consommation du bitcoin par an avec d'autres objets.</p>
+      <p class="body_2">La partie de gauche de cette page permet de sélectionner un 'objet' et une année, et la partie de droite vous donne une visualisation de deux manière différente.</p>
+      <p class="body_2">En haut à droite, vous avez donc 3 chiffres,
+        la consommation du bitcoin l'année sélectionnée,
+        la consommation à l'unité de l'objet sélectionné et
+        le nombre d'objets nécessaire pour égaler la consommation du bitcoin.</p>
+      <p class="body_2">En bas à droite, le grand rectangle affiche un nombre d'objets entre 0 et 1000 avec une échelle logarithme afin de visualiser l'évolution suivant les années.</p>
+    </InfoSection>
+    <div class="sct selection col-6 col-m-6">
       <div class="type">
         <h6>Types :</h6>
         <p class="subtitle_2">Production :</p>
@@ -19,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div :class="['affichage col-6 col-m-6', getDataType]">
+    <div :class="['affichage sct col-6 col-m-6', getDataType]">
       <div class="head">
         <div class="content">
           <div class="bitcoinInfo">
@@ -49,6 +59,7 @@ import ButtonType from '@/components/elements/ButtonType.vue'
 import ButtonYear from '@/components/elements/ButtonYear.vue'
 import IconType from '@/components/elements/IconType.vue'
 import GraphIcons from '@/components/elements/GraphIcons.vue'
+import InfoSection from '@/components/elements/InfoSection'
 
 export default {
   name: 'Comparaison',
@@ -71,7 +82,8 @@ export default {
     ButtonType,
     ButtonYear,
     IconType,
-    GraphIcons
+    GraphIcons,
+    InfoSection
   },
   mounted () {
     let self = this
@@ -169,7 +181,7 @@ export default {
     background: white;
     padding-top: 64px;
   }
-  .page-comparaison > div {
+  .page-comparaison > .sct {
     position: relative;
     display: block;
     height: 50%;
@@ -273,7 +285,7 @@ export default {
   }
 
   @media only screen and (min-width: 768px) {
-    .page-comparaison > div {
+    .page-comparaison > .sct {
       height: 100%;
     }
   }

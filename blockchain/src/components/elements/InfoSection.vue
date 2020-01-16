@@ -1,7 +1,7 @@
 <template>
-  <div :class="['infoSection', getDataType, isActive]">
-    <div class="black_bg"></div>
-    <div class="content">
+  <div :class="['infoSection', getDataType, isActive]" :style="'top:' + top + 'px'">
+    <div class="black_bg" v-if="active"></div>
+    <div class="content" v-if="active">
       <slot></slot>
     </div>
     <div class="icon_button" @click.prevent.stop="switchActivate">
@@ -15,9 +15,9 @@
 export default {
   name: 'InfoSection',
   props: {
-    id: {
+    top: {
       type: Number,
-      default: -1
+      default: 0
     }
   },
   data () {
@@ -58,15 +58,12 @@ export default {
     padding: 5px;
     z-index: 999;
   }
-
+  .infoSection.activate {
+    width: 100vw;
+    height: calc(100vh - 64px);
+  }
   .infoSection.energie .content {
     background-color: var(--color-primary);
-
-    -webkit-transition: .25s ease;
-    -moz-transition: .25s ease;
-    -ms-transition: .25s ease;
-    -o-transition: .25s ease;
-    transition: .25s ease;
     z-index: 999;
   }
   .black_bg {
@@ -96,18 +93,10 @@ export default {
 
   .infoSection.data .content {
     background-color: var(--color-secondary);
-
-    -webkit-transition: .25s ease;
-    -moz-transition: .25s ease;
-    -ms-transition: .25s ease;
-    -o-transition: .25s ease;
-    transition: .25s ease;
   }
 
   .infoSection .content {
     position: relative;
-    width: 100%;
-    height: 100%;
     background-color: red;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
@@ -116,18 +105,6 @@ export default {
     padding: 20px;
     opacity: 0;
 
-    -webkit-transform: scale(.9);
-    -moz-transform: scale(.9);
-    -ms-transform: scale(.9);
-    -o-transform: scale(.9);
-    transform: scale(.9);
-
-    -webkit-transition: .25s ease;
-    -moz-transition: .25s ease;
-    -ms-transition: .25s ease;
-    -o-transition: .25s ease;
-    transition: .25s ease;
-
     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -135,12 +112,6 @@ export default {
 
   .infoSection.activate .content {
     opacity: 1;
-
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    transform: scale(1);
   }
 
   .icon_button {
@@ -155,19 +126,7 @@ export default {
     -moz-border-radius: 50px;
     border-radius: 50px;
     cursor: pointer;
-
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    transform: scale(1);
     color: black;
-
-    -webkit-transition: .25s ease;
-    -moz-transition: .25s ease;
-    -ms-transition: .25s ease;
-    -o-transition: .25s ease;
-    transition: .25s ease;
   }
 
   .icon_button p {
@@ -191,12 +150,6 @@ export default {
   .icon_button:hover,
   .activate .icon_button {
     background-color: transparent;
-
-    -webkit-transition: .25s ease;
-    -moz-transition: .25s ease;
-    -ms-transition: .25s ease;
-    -o-transition: .25s ease;
-    transition: .25s ease;
   }
 
   .energie .icon_button:hover,

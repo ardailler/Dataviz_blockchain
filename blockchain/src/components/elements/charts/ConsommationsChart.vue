@@ -43,19 +43,21 @@ export default {
       cursorDate: null,
       monthNames: ['Jan', 'Freb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
       options: { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
-      posCurseur: 0
+      posCurseur: 0,
+      intervale: null,
+      intervale1: null
     }
   },
   mounted () {
     let self = this
-    setTimeout(function () {
+    self.intervale = setTimeout(function () {
       self.width = document.getElementById('consommations_chart').offsetWidth
       self.height = document.getElementById('consommations_chart').offsetHeight
     }, 50)
 
     window.addEventListener('resize', self.handleWindowResize)
-    self.loadData('Days', csvAvgConsommation) // Years / Months / Days
-    setTimeout(function () {
+    self.loadData('Days', self.typeGraph === 'data' ? csvAvgConsommation : csvAvgConsommationNrg) // Years / Months / Days
+    self.intervale1 = setTimeout(function () {
       self.initGraph()
     }, 1000)
   },
@@ -69,10 +71,13 @@ export default {
   watch: {
     typeGraph: function (newVal, oldVal) { // watch it
       let self = this
-      self.svg.remove()
+      if (self.svg) {
+        self.svg.remove()
+      }
       self.svg = null
       self.loadData('Days', newVal === 'data' ? csvAvgConsommation : csvAvgConsommationNrg) // Years / Months / Days
-      setTimeout(function () {
+      clearInterval(self.intervale1)
+      self.intervale1 = setTimeout(function () {
         self.initGraph()
       }, 1000)
     }
