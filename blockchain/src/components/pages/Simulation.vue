@@ -5,8 +5,9 @@
       <p class="body_2">Les cryptomonnaies se reposent sur un système de minage :
         des machines effectuent des calculs complexes afin d'ouvrir le prochain block et donc de valider des transactions (le minage).
         La complexité des calculs et la puissance des machines augmentent avec le temps.
-        Il est possible de réaliser un bénéfice si le coût énergétique du minage est plus faible que le prix de revente de la monnaie minée.
-        Voici la liste des paramètres qui influence le coût du minage :</p>
+        Il est possible de réaliser un bénéfice si le coût énergétique du minage est plus faible que le prix de revente de la monnaie minée.</p>
+      <p class="body_2">Sur cette page vous pouvez simuler les différents paramètres pour calculer votre consommation d'énergie due à la blockchain.
+        Voici la liste des paramètres :</p>
       <p class="body_2"> - Le taux de hachage représente la puissance de minage (la vitesse de calcul) requise pour valider des transactions.</p>
       <p class="body_2"> - Taux de hachage possédée par la machine utilisée.</p>
       <p class="body_2"> - Les cryptomonnaies peuvent être échangées contre de l'argent réel avec un autre utilisateur.</p>
