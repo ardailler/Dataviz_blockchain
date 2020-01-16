@@ -16,10 +16,9 @@
       <Simulation></Simulation>
     </FullpageSection>
 
-    <FullpageSection>
+    <!-- <FullpageSection>
       <Banque></Banque>
-    </FullpageSection>
-
+    </FullpageSection> -->
     <FullpageSection>
       <FooterPage></FooterPage>
     </FullpageSection>
@@ -61,11 +60,11 @@ export default {
         menu: '#menu',
         lockAnchors: true,
         scrollingSpeed: 800,
-        sectionsColor: ['white', 'white', 'white', 'white', 'white', 'black'],
-        anchors: ['Introduction', 'Consommations', 'Comparaisons·des·consommations', 'Simulation', 'Système·bancaire', 'FooterPage'],
+        sectionsColor: ['white', 'white', 'white', 'white', /* 'white', */ 'black'],
+        anchors: ['Introduction', 'Consommations', 'Comparaisons·des·consommations', 'Simulation', /* 'Système·bancaire', */ 'FooterPage'],
         navigation: true,
         navigationPosition: 'right',
-        navigationTooltips: ['Introduction', 'Consommations', 'Comparaisons·des·consommations', 'Simulation', 'Système·bancaire', 'Ressources'],
+        navigationTooltips: ['Introduction', 'Consommations', 'Comparaisons·des·consommations', 'Simulation', /* 'Système·bancaire', */ 'Ressources'],
         scrollOverflow: true,
         scrollOverflowReset: true,
         showActiveTooltip: false,
