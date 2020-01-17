@@ -7,6 +7,9 @@
         <p class="body_2">Le premier représente la consommation des données en Kwh ou en Mo du Bitcoin.
           Cette consommation est calculée à l'aide du nombre de transactions par jour, du nombre de transactions par blocks et de la consommation d'un block.</p>
         <p class="body_2">Le second représente le nombre de transactions par jour (en bleu foncé) et le nombre de transactions par blocks (en bleu).</p>
+        <p class="body_2">Une transaction représente un flux de bitcoin entre deux <em>wallet</em> (comptes contenant des bitcoin).</p>
+        <p class="body_2">Il est important de noter que le coût d'une transaction ne dépend pas de la somme qu'elle contient. Ainsi, une transaction de
+          0.001 bitcoin (environ 8€) et de 10 bitcoin (environ 80 000€) auront la même consommation.</p>
       </InfoSection>
       <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1"><span class="cursor"></span>Date : <br>{{getDateCursor}}</p>
       <p class="col-xs-3 col-s-3 col-m-3 col-l-3 col-3 subtitle_1 transacts"><span class="cursor"></span>Transactions : <br>{{transactValue}} / jours</p>
