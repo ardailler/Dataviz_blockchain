@@ -79,8 +79,8 @@ export default {
     getNumber2 () {
       return this.consoNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
-    getConsoNumberSize() {
-      return Math.min(Math.max(Math.log10(this.consoNumber), Math.log(9)), Math.log10(10000000)) * 0.95
+    getConsoNumberSize () {
+      return Math.min(Math.max(Math.log10(this.consoNumber), Math.log(9)), Math.log10(10000000)) * 0.90
     }
   },
   methods: {
@@ -312,6 +312,7 @@ export default {
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     border-radius: 25px;
+    overflow: hidden;
 
     -webkit-transition: 0.25s ease;
     -moz-transition: 0.25s ease;
