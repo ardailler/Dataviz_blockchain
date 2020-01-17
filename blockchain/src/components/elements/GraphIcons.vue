@@ -1,6 +1,7 @@
 <template>
   <div :class="['graphIcons', color]" >
     <div v-for="(item, index) in getNumber" v-bind:key="(index+'-iconsG')" :class="['icons', name]" :style="'width: calc(100% / (' + getRatio + '));height: calc(100% / (' + getRatio + ' + 2));'"></div>
+    <h4 class="consoNumber">{{getNumber2}}</h4>
   </div>
 </template>
 
@@ -74,6 +75,9 @@ export default {
     },
     getRatio () {
       return Math.sqrt(this.getNumber)
+    },
+    getNumber2 () {
+      return this.consoNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     }
   },
   methods: {
@@ -296,7 +300,7 @@ export default {
     display: flex;
     flex-flow: wrap;
     justify-content: space-evenly;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
     height: calc(100vh - 248px);
     padding: 10px;
@@ -341,7 +345,21 @@ export default {
     position: relative;
     display: block;
   }
+  .consoNumber {
+    position: absolute;
+    padding: 10px;
+    background-color: black;
 
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+  .graphIcons.energie .consoNumber {
+    color: var(--color-primary);
+  }
+  .graphIcons.data .consoNumber {
+    color: var(--color-secondary);
+  }
   @media only screen and (min-width: 768px) {
   }
 
