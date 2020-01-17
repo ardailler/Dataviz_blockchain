@@ -1,7 +1,7 @@
 <template>
   <div :class="['graphIcons', color]" >
     <div v-for="(item, index) in getNumber" v-bind:key="(index+'-iconsG')" :class="['icons', name]" :style="'width: calc(100% / (' + getRatio + '));height: calc(100% / (' + getRatio + ' + 2));'"></div>
-    <h4 class="consoNumber">{{getNumber2}}</h4>
+    <h4 class="consoNumber" :style="'font-size: ' + getConsoNumberSize + 'em;'">{{getNumber2}}</h4>
   </div>
 </template>
 
@@ -77,7 +77,13 @@ export default {
       return Math.sqrt(this.getNumber)
     },
     getNumber2 () {
-      return this.consoNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      return Math.floor(this.consoNumber).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    getConsoNumberSize() {
+      if (this.consoNumber <= 1) {
+        return Math.log10(1);
+      }
+      return Math.min(Math.log10(this.consoNumber), Math.log10(10000000))
     }
   },
   methods: {
