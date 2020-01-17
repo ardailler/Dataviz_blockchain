@@ -40,7 +40,7 @@
           </div>
           <div class="typeInfo">
             <div class="text">
-              <p class="subtitle_1">1 = {{getConsoType}} Kwh</p>
+              <p class="subtitle_1">1 = {{getConsoType}} Kw</p>
               <h6><strong>{{getNumber}}</strong></h6>
             </div>
             <IconType :name="getIcon"></IconType>

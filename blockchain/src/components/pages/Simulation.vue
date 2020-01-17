@@ -31,7 +31,7 @@
       </div>
       <div class="input_container">
         <label class="subtitle_2">Prix Electricité :</label>
-        <input v-model="prix" type="number" step="any" placeholder="prix d'un kwH">
+        <input v-model="prix" type="number" step="any" placeholder="prix d'un kWh">
       </div>
       <div class="input_container">
         <label class="subtitle_2">Consommation machine :</label>
