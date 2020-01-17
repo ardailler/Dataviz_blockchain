@@ -68,7 +68,7 @@ export default {
       return this.$store.getters.allData.switchConso ? 'data' : 'energie'
     },
     getConsoType () {
-      return this.$store.getters.allData.switchConso ? 'Mo' : 'kW'
+      return this.$store.getters.allData.switchConso ? 'Mo' : 'kWh'
     },
     blockValueRound () {
       return parseFloat(this.blockValue).toFixed(2)
