@@ -2,13 +2,13 @@
 
 [Go to the website](https://ardailler.github.io/Dataviz_blockchain/)
 
-As the bitcoin usage expands every day, people can be concerned about the
-energetic cost of this technology.
+As the bitcoin usage expands every day, people may be concerned by the
+environmental impact of this technology.
 
 This website helps people to visualize what are the cost of Bitcoin in term of
-energy and data used for the transactions and the mining. While the transaction
-cost is very low, the mining consumes a lot of energy. Despite this fact, the
-mining activity can be very profitable.
+power and data consumption for the transaction part and the mining part. While
+the transaction cost is very low, the mining consumes a lot of power. However
+the mining activity can be very profitable.
 
 ![A screenshot of a visualisation](thumbnail.png)
 
@@ -30,6 +30,7 @@ have to do this step once.
 
 ### Deploy
 - `npm run dev` to deploy with hot load (the changes in the code will be
-displayed on the website automatically). The address will be displayed in the console.
+displayed on the website automatically). The address will be displayed in the
+console.
 - `npm run build` to generate the static webpage found in the `docs` folder.
 

@@ -61,7 +61,7 @@ export default {
         lockAnchors: true,
         scrollingSpeed: 800,
         sectionsColor: ['white', 'white', 'white', 'white', /* 'white', */ 'black'],
-        anchors: ['Introduction', 'Consommation·des·transactions', 'Consommation·des·transactions·et·du·minage', 'Simulation·de·la·rentabilité·du·minage', /* 'Système·bancaire', */ 'FooterPage'],
+        anchors: ['Introduction', 'Consommation·des·transactions', 'Visualisation·de·la·consommation·des·transactions·et·du·minage', 'Simulation·de·la·rentabilité·du·minage', /* 'Système·bancaire', */ 'FooterPage'],
         navigation: true,
         navigationPosition: 'right',
         navigationTooltips: ['Introduction', 'Transactions', 'Consommation·du·système', 'Rentabilité', /* 'Système·bancaire', */ 'Ressources'],

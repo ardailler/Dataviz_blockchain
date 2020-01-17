@@ -12,7 +12,7 @@
       <p class="body_2"> - Taux de hachage possédée par la machine utilisée.</p>
       <p class="body_2"> - Les cryptomonnaies peuvent être échangées contre de l'argent réel avec un autre utilisateur.</p>
       <p class="body_2"> - Le prix de l'électricité (en kWh) influe sur la rentabilité des équipements utilisés.</p>
-      <p class="body_2"> - La quantité d'electricité consommée par la machine en kw/h.</p>
+      <p class="body_2"> - La quantité d'electricité consommée par la machine en kWh.</p>
       <p class="body_2"> - Nombre de cryptomonnaie moyenne gagnée lorsque l'on mine un bloc.</p>
       <p class="body_2"> - Nombre de blocs minables par heure.</p>
     </InfoSection>
