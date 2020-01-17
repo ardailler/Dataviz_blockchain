@@ -1,6 +1,6 @@
 <template>
   <div :class="['infoSection', getDataType, isActive]" :style="'top:' + top + 'px'">
-    <div class="black_bg" v-if="active"></div>
+    <div class="black_bg" v-if="active" @click.prevent.stop="switchActivate"></div>
     <div class="content" v-if="active">
       <slot></slot>
     </div>
@@ -22,7 +22,7 @@ export default {
   },
   data () {
     return {
-      active: false
+      active: true
     }
   },
   components: {
