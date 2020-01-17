@@ -35,12 +35,12 @@
           <div class="bitcoinInfo">
             <IconType :name="'Bitcoin'"></IconType>
             <div class="text">
-              <p class="body_2"><strong>{{getConsoYear}} Kw</strong></p>
+              <p class="body_2"><strong>{{getConsoYear}} kW</strong></p>
             </div>
           </div>
           <div class="typeInfo">
             <div class="text">
-              <p class="subtitle_1">1 = {{getConsoType}} Kwh</p>
+              <p class="subtitle_1">1 = {{getConsoType}} kW</p>
               <h6><strong>{{getNumber}}</strong></h6>
             </div>
             <IconType :name="getIcon"></IconType>

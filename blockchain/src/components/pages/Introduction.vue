@@ -7,6 +7,11 @@
         <h6>Arnaud<span> Dailler</span></h6>
         <h6>Thibaud<span> Perrin</span></h6>
         <h6>Jean-Philippe<span> Tisserand</span></h6>
+        <div class="context">
+          Projet de <span><a href="https://lyondataviz.github.io/teaching/lyon1-m2/2019/">Data Visualisation</a></span>
+          <br><a href="https://www.univ-lyon1.fr/">Université Lyon 1</a> -
+          <a href="http://master-info.univ-lyon1.fr/IA/">Master 2 Intelligence Artificielle</a>
+        </div>
       </div>
     </div>
   </div>
@@ -54,6 +59,20 @@ export default {
   .title h3 > span,
   .title .team h6 > span {
     font-family: "Muli SemiBold", sans-serif;
+  }
+
+  .context {
+    margin-top: 1em;
+    font-family: "Muli ExtraLight", sans-serif;
+    text-align: right;
+  }
+
+  .context > span {
+    font-family: "Muli SemiBold", sans-serif;
+  }
+
+  .context a {
+    text-decoration: none;
   }
 
 </style>

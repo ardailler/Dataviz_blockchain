@@ -1,16 +1,36 @@
-# Data Visualisation - Visualisation Blockchain
+# Data Visualisation - Blockchain Mining Visualisation
 
-[DEMO](https://ardailler.github.io/Dataviz_blockchain/)
+[Go to the website](https://ardailler.github.io/Dataviz_blockchain/)
 
-## Installation / Mise en place
+As the bitcoin usage expands every day, people may be concerned by the
+environmental impact of this technology.
 
-### Installation
-- Installer `npm`
-- Se déplacer dans le dossier du dépôt 
-- Entrer la commande `npm install`
-    - Permet d'installer les `node_module`
-    - A faire uniquement lorsqu'il y a de nouvelles dépendances
+This website helps people to visualize what are the cost of Bitcoin in term of
+power and data consumption for the transaction part and the mining part. While
+the transaction cost is very low, the mining consumes a lot of power. However
+the mining activity can be very profitable.
 
-### Mise en place du serveur en local
-- `npm run dev`
-    - Un serveur web sera lancé en local. L'adresse sera affiché dans la console.
+![A screenshot of a visualisation](thumbnail.png)
+
+
+## How to deploy the website
+
+### Install
+
+*Clone the project*
+
+- `git clone https://github.com/ardailler/Dataviz_blockchain.git`
+- `cd Dataviz_blockchain/blockchain`
+
+*Install the dependencies*
+
+- Install `npm`
+- Use `npm install` to install the `node_module` used in the project. You only
+have to do this step once.
+
+### Deploy
+- `npm run dev` to deploy with hot load (the changes in the code will be
+displayed on the website automatically). The address will be displayed in the
+console.
+- `npm run build` to generate the static webpage found in the `docs` folder.
+
